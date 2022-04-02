@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message getMessage(String id) {
-        return messageRepository.findById(id)
+        return messageRepository.findById(Long.valueOf(id))
                 .map(message -> {
                    message.setMessageStatus(MessageStatus.DELIVERED);
                    return messageRepository.save(message);

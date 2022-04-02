@@ -18,6 +18,7 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'com.vladmihalcea:hibernate-types-52:1.0.0'
+	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'

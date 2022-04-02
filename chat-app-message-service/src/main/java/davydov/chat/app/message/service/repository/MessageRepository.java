@@ -12,7 +12,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface MessageRepository extends CrudRepository<Message, String> {
+public interface MessageRepository extends CrudRepository<Message, Long> {
+
     List<Message> findByChatId(String chatId);
 
     @Transactional

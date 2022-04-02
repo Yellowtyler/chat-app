@@ -35,7 +35,8 @@ public class ChatController {
                 MessageNotification.builder()
                         .id(message.getId())
                         .senderId(message.getSenderId())
-                        .senderName(message.getSenderName()));
+                        .senderName(message.getSenderName()).build()
+        );
     }
 
     @GetMapping("/messages/{senderId}/{recipientId}")

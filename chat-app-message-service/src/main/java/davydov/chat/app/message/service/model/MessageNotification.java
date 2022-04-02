@@ -6,7 +6,7 @@ import lombok.Data;
 @Builder
 @Data
 public class MessageNotification {
-    private String id;
+    private Long id;
     private String senderId;
     private String senderName;
 }
