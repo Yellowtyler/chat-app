@@ -1,0 +1,87 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  min-height: 100vh;
+}
+
+.auth-page {
+    padding: 1rem;
+    height: 400px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+}
+
+.auth-container {
+  border-radius: 10px;
+  vertical-align: middle;
+
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  border-color: grey;
+  border: solid 0.1em;
+  flex-direction: column;
+  min-height: 170px;
+  height: 200px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.login {
+  justify-content: space-between;
+  border: 0ch;
+  border-bottom: solid 0.1em;
+  margin-top: 2rem;
+  transform: scale(0.9);
+}
+
+.password {
+  justify-content: space-between;
+  border: 0ch;
+  border-bottom: solid 0.1em;
+  margin-top: 2rem;
+  transform: scale(0.9);
+}
+
+.login-btn {
+  border: none;
+  width: 90%;
+  display: block;
+  border-radius: 15px;
+  margin-top: 2rem;
+  color: white;
+  background-color: rgb(62, 95, 185);
+}
+
+.register-btn {
+  border: none;
+  width: 90%;
+  display: block;
+  border-radius: 15px;
+  margin-top: 2rem;
+  color: white;
+  background-color: rgb(62, 95, 185);
+}
