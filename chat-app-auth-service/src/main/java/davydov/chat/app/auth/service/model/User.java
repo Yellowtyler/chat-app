@@ -5,9 +5,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
-
-import static davydov.chat.app.auth.service.model.Role.USER;
 
 @Data
 @Entity
@@ -30,7 +27,6 @@ public class User {
 
     private boolean isActive;
 
-    private Set<Role> roles;
 
     public User(User user) {
         this.id = user.id;
@@ -39,7 +35,6 @@ public class User {
         this.mail = user.mail;
         this.creationDate = user.creationDate;
         this.isActive = user.isActive;
-        this.roles = user.roles;
     }
 
     public User(String username, String password, String mail) {
@@ -48,6 +43,5 @@ public class User {
         this.mail = mail;
         this.creationDate = LocalDateTime.now();
         isActive = true;
-        this.roles = Set.of(USER);
     }
 }

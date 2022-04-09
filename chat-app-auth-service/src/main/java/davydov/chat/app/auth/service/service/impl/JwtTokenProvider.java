@@ -38,18 +38,4 @@ public class JwtTokenProvider implements TokenProvider {
                 .compact();
     }
 
-    @Override
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(jwtProperty.getSecret().getBytes())
-                    .build()
-                    .parse(token);
-            return true;
-
-        } catch (Exception e) {
-            log.error("validateToken() - exception during parsing token", e);
-        }
-        return false;
-    }
 }

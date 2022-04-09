@@ -6,7 +6,6 @@ public interface TokenProvider {
 
     String generateToken(Authentication authentication);
 
-    boolean validateToken(String token);
 
 
 }

@@ -5,7 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 public class ChatUserDetails extends User implements UserDetails {
 
@@ -15,10 +15,7 @@ public class ChatUserDetails extends User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getValue()))
-                .collect(Collectors.toSet());
+        return Set.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
