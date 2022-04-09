@@ -11,6 +11,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+server:
+  port: 8081
+
 jwt:
   uri: /auth/**
   header: Authorization

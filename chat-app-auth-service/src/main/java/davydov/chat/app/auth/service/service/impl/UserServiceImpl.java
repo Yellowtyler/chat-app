@@ -1,5 +1,6 @@
 package davydov.chat.app.auth.service.service.impl;
 
+import davydov.chat.app.auth.service.exception.UserAlreadyExistsException;
 import davydov.chat.app.auth.service.model.LoginRequest;
 import davydov.chat.app.auth.service.model.SignupRequest;
 import davydov.chat.app.auth.service.model.User;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerUser(SignupRequest signupRequest) {
+       if (userRepository.findByUsername(signupRequest.getUsername()).isPresent()) {
+           throw new UserAlreadyExistsException("user '" + signupRequest.getUsername() + "' already exists");
+       }
         var user = new User(
                 signupRequest.getUsername(),
                 signupRequest.getPassword(),

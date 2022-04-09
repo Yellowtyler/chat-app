@@ -44,4 +44,8 @@ public class User {
         this.creationDate = LocalDateTime.now();
         isActive = true;
     }
+
+    public User() {
+    }
+
 }
