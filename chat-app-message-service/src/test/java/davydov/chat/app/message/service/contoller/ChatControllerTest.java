@@ -1,14 +1,15 @@
 package davydov.chat.app.message.service.contoller;
 
 import davydov.chat.app.message.service.model.Message;
-import davydov.chat.app.message.service.model.MessageNotification;
 import davydov.chat.app.message.service.model.MessageStatus;
+import davydov.chat.app.message.service.service.MessageService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.converter.StringMessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
@@ -20,56 +21,56 @@ import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CompletableFuture;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.profiles.active=test")
 class ChatControllerTest {
 
     @LocalServerPort
     private Integer port;
     private WebSocketStompClient webSocketStompClient;
+    private CompletableFuture<Message> completableFuture;
+
+    @MockBean
+    private MessageService messageService;
 
     @BeforeEach
     public void setup() {
+        completableFuture = new CompletableFuture<>();
         this.webSocketStompClient = new WebSocketStompClient(new SockJsClient(
                 List.of(new WebSocketTransport(new StandardWebSocketClient()))));
     }
 
     @Test
     public void verifyMessageIsReceived() throws Exception {
-
-        BlockingQueue<String> blockingQueue = new ArrayBlockingQueue(1);
+        Long id = 1L;
 
         webSocketStompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
         StompSession session = webSocketStompClient
                 .connect(String.format("ws://localhost:%d/ws", port), new StompSessionHandlerAdapter() {})
-                .get();
+                .get(1, SECONDS);
 
-        session.subscribe("/queue/messages", new StompFrameHandler() {
-
+        session.subscribe("/user/" + id + "/queue/messages", new StompFrameHandler() {
 
             @Override
             public Type getPayloadType(StompHeaders headers) {
 
-                return String.class;
+                return Message.class;
             }
 
             @Override
             public void handleFrame(StompHeaders headers, Object payload) {
-                System.out.println("Received message: " + payload);
-                blockingQueue.add((String) payload);
+                completableFuture.complete((Message ) payload);
             }
         });
 
         var message = Message.builder()
                 .messageStatus(MessageStatus.DELIVERED)
+                .id(id)
                 .chatId("1")
                 .content("hi")
                 .recipientId("1")
@@ -79,6 +80,7 @@ class ChatControllerTest {
 
         session.send("/app/chat", message);
 
-        assertEquals("Hello, Mike!", blockingQueue.poll());
+        var actual = completableFuture.get();
+        Assertions.assertNotNull(actual);
     }
 }

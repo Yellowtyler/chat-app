@@ -3,6 +3,7 @@ package davydov.chat.app.message.service.filter;
 import davydov.chat.app.message.service.property.JwtProperty;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,6 +15,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
+
+// TODO: find way to mock filter in test
+@Profile("!test")
 @Component
 public class JwtValidationFilter extends OncePerRequestFilter {
 
