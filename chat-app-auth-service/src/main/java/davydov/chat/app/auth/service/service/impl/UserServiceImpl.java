@@ -2,7 +2,6 @@ package davydov.chat.app.auth.service.service.impl;
 
 import davydov.chat.app.auth.service.model.LoginRequest;
 import davydov.chat.app.auth.service.model.SignupRequest;
-import davydov.chat.app.auth.service.model.SignupResponse;
 import davydov.chat.app.auth.service.model.User;
 import davydov.chat.app.auth.service.repository.UserRepository;
 import davydov.chat.app.auth.service.service.TokenProvider;
@@ -24,15 +23,13 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public SignupResponse registerUser(SignupRequest signupRequest) {
+    public void registerUser(SignupRequest signupRequest) {
         var user = new User(
                 signupRequest.getUsername(),
                 signupRequest.getPassword(),
                 signupRequest.getEmail()
         );
-        var savedUser = userRepository.save(user);
-
-        return new SignupResponse(true, savedUser.getUsername());
+        userRepository.save(user);
     }
 
     @Override
