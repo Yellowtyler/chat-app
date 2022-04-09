@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class SignupResponse {
     private Boolean success;
-    private String message;
+    private String username;
 
-    public SignupResponse(boolean success, String message) {
+    public SignupResponse(boolean success, String username) {
         this.success = success;
-        this.message = message;
+        this.username = username;
     }
 }

@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         );
         var savedUser = userRepository.save(user);
 
-        return new SignupResponse(true, "user " + savedUser.getUsername() + " was successfully registered");
+        return new SignupResponse(true, savedUser.getUsername());
     }
 
     @Override
