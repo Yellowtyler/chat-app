@@ -3,6 +3,7 @@ package davydov.chat.app.auth.service.service.impl;
 import davydov.chat.app.auth.service.exception.UserAlreadyExistsException;
 import davydov.chat.app.auth.service.model.User;
 import davydov.chat.app.auth.service.payload.LoginRequest;
+import davydov.chat.app.auth.service.payload.LoginResponse;
 import davydov.chat.app.auth.service.payload.SignupRequest;
 import davydov.chat.app.auth.service.repository.RoleRepository;
 import davydov.chat.app.auth.service.repository.UserRepository;
@@ -42,11 +43,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String authenticateUser(LoginRequest loginRequest) {
+    public LoginResponse authenticateUser(LoginRequest loginRequest) {
         var user = userDetailsService.loadUserByUsername(loginRequest.getUsername());
         var token = new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword(), user.getAuthorities());
         var authentication = authenticationManager.authenticate(token);
-        return tokenProvider.generateToken(authentication);
+        return new LoginResponse(tokenProvider.generateToken(authentication));
     }
 
 }

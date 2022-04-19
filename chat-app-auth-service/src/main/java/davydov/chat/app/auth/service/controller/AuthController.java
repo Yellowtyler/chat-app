@@ -1,6 +1,7 @@
 package davydov.chat.app.auth.service.controller;
 
 import davydov.chat.app.auth.service.payload.LoginRequest;
+import davydov.chat.app.auth.service.payload.LoginResponse;
 import davydov.chat.app.auth.service.payload.SignupRequest;
 import davydov.chat.app.auth.service.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> authenticateUser(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(userService.authenticateUser(loginRequest));
     }
 
