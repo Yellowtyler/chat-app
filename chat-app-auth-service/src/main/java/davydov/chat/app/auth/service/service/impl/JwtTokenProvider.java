@@ -34,7 +34,7 @@ public class JwtTokenProvider implements TokenProvider {
                 )
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + jwtProperty.getExpiration() * 1000L))
-                .signWith(Keys.hmacShaKeyFor(jwtProperty.getSecret().getBytes()), SignatureAlgorithm.HS512)
+                .signWith(Keys.hmacShaKeyFor(jwtProperty.getSecret().getBytes()), SignatureAlgorithm.HS256)
                 .compact();
     }
 

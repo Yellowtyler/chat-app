@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -19,4 +19,5 @@ public class UserDetailsService implements org.springframework.security.core.use
                 .map(ChatUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s username not found", username)));
     }
+
 }

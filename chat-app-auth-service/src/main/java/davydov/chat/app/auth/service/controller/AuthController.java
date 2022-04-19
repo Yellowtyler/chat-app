@@ -1,7 +1,7 @@
 package davydov.chat.app.auth.service.controller;
 
-import davydov.chat.app.auth.service.model.LoginRequest;
-import davydov.chat.app.auth.service.model.SignupRequest;
+import davydov.chat.app.auth.service.payload.LoginRequest;
+import davydov.chat.app.auth.service.payload.SignupRequest;
 import davydov.chat.app.auth.service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class AuthController {
 
     private final UserService userService;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<String> authenticateUser(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(userService.authenticateUser(loginRequest));
     }
 

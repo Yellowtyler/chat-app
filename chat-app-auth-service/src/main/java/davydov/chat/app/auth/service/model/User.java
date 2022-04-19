@@ -1,12 +1,15 @@
 package davydov.chat.app.auth.service.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -18,10 +21,16 @@ public class User {
     @Column(unique = true)
     private String username;
 
-    @JsonIgnore
     private String password;
 
     private String mail;
+
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Collection<Role> roles;
 
     private LocalDateTime creationDate;
 
@@ -35,13 +44,15 @@ public class User {
         this.mail = user.mail;
         this.creationDate = user.creationDate;
         this.isActive = user.isActive;
+        this.roles = user.roles;
     }
 
-    public User(String username, String password, String mail) {
+    public User(String username, String password, String mail, Role role) {
         this.username = username;
         this.password = password;
         this.mail = mail;
         this.creationDate = LocalDateTime.now();
+        this.roles = Set.of(role);
         isActive = true;
     }
 

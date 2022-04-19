@@ -14,9 +14,13 @@ spring:
 server:
   port: 8081
 
+logging:
+  level:
+    org.springframework: DEBUG
+
 jwt:
   uri: /auth/**
   header: Authorization
   prefix: Bearer
   expiration: 300
-  secret: JwtSecretKey
+  secret: JwtSuperBigFuckYeahWhatElseToWriteOMGSecretKey

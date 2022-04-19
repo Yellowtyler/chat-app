@@ -1,9 +1,10 @@
 package davydov.chat.app.auth.service.service.impl;
 
 import davydov.chat.app.auth.service.exception.UserAlreadyExistsException;
-import davydov.chat.app.auth.service.model.LoginRequest;
-import davydov.chat.app.auth.service.model.SignupRequest;
 import davydov.chat.app.auth.service.model.User;
+import davydov.chat.app.auth.service.payload.LoginRequest;
+import davydov.chat.app.auth.service.payload.SignupRequest;
+import davydov.chat.app.auth.service.repository.RoleRepository;
 import davydov.chat.app.auth.service.repository.UserRepository;
 import davydov.chat.app.auth.service.service.TokenProvider;
 import davydov.chat.app.auth.service.service.UserService;
@@ -11,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -20,8 +21,11 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserDetailsService userDetailsService;
+    private final RoleRepository roleRepository;
     private final TokenProvider tokenProvider;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void registerUser(SignupRequest signupRequest) {
@@ -30,17 +34,18 @@ public class UserServiceImpl implements UserService {
        }
         var user = new User(
                 signupRequest.getUsername(),
-                signupRequest.getPassword(),
-                signupRequest.getEmail()
+                passwordEncoder.encode(signupRequest.getPassword()),
+                signupRequest.getEmail(),
+                roleRepository.findByName("ROLE_USER")
         );
         userRepository.save(user);
     }
 
     @Override
     public String authenticateUser(LoginRequest loginRequest) {
-        var user = userRepository.findByUsername(loginRequest.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s username not found", loginRequest.getUsername())));
-        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        var user = userDetailsService.loadUserByUsername(loginRequest.getUsername());
+        var token = new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword(), user.getAuthorities());
+        var authentication = authenticationManager.authenticate(token);
         return tokenProvider.generateToken(authentication);
     }
 
