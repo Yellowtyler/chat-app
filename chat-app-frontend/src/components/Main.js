@@ -1,7 +1,11 @@
 
+import { useState, useEffect } from "react";
+
 const Main = () => {
     return (
-        <div></div>
+        <div>
+            <span>Menu</span>
+        </div>
     );
 };
 

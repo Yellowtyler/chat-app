@@ -4,12 +4,12 @@ import Main from './components/Main';
 
 const App = () => {
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   return (
     <div className='container'>
-      {isLogin && <Auth/>}
-      {!isLogin && <Main/>}
+      {!isLogin && <Auth setIsLogin={setIsLogin}/>}
+      {isLogin && <Main/>}
     </div>
   );
 };
