@@ -1,29 +1,29 @@
+import axios from "axios";
+import jwtDecode from "jwt-decode";
+
 const AUTH_SERVICE_URL = "http://localhost:8081/auth";
 
-const signUpUser = (signUp) => {
-    fetch(AUTH_SERVICE_URL + "/signup")
-    .then((res) => {
-        if (!res.ok) {
-            throw new Error("error");
-        }
-    })
-    .catch(e => console.log(e));  
+export const signupUser = (signUp) => {
+    return axios.post(AUTH_SERVICE_URL + "/signup", signUp);
 };
 
 export const loginUser = (login) => {
-    fetch(AUTH_SERVICE_URL + "/login", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(login)
-    })
-    .then(data => {
-        localStorage.setItem("accessToken", data.json().token);
-    })
-    .catch(e=>console.log(e));
+    return axios.post(AUTH_SERVICE_URL + "/login", login)
+    .then(response => localStorage.setItem("accessToken", response.data.token));
 };
 
-const getCurrentUser = () => {
-
+export const getCurrentUser = () => {
+    let tokenData = jwtDecode(localStorage.getItem("accessToken"));
+    return tokenData.sub;
 };
+
+export const logout = () => {
+    localStorage.removeItem("accessToken");
+};
+
+export const authHeader = () => {
+    var accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+        return {Authorization: 'Bearer ' + accessToken};
+    }
+}

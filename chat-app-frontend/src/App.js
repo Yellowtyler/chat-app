@@ -4,7 +4,9 @@ import Main from './components/Main';
 
 const App = () => {
 
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem("accessToken") ? true : false
+  );
 
   return (
     <div className='container'>

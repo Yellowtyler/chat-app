@@ -1,22 +1,33 @@
-import { loginUser } from './../api/AuthService';
+import { loginUser, signupUser } from './../api/AuthService';
 import { useState } from 'react';
-
+import {BiArrowBack} from "react-icons/bi";
 const Auth = ({setIsLogin}) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoginPage, setIsLoginPage] = useState(true);
+    const [mail, setMail] = useState('');
 
     const handleLogin = (e) => {
         const login = {
             username: username,
             password: password
         };
-        loginUser(login)
-        if (localStorage.getItem("accessToken") !== undefined) {
-            setIsLogin(true);
-        }
+        loginUser(login).then(()=>setIsLogin(true), error => {
+            console.log(error);
+        });
     }
+
+    const handleSignup = (e) => {
+        const signupRequest = {
+            username: username,
+            password: password,
+            mail: mail
+        };
+        signupUser(signupRequest).then(()=>setIsLoginPage(true), error => {
+            console.log(error);
+        });
+    };
 
     const switchPage = (e) => {
         setIsLoginPage(!isLoginPage);
@@ -37,15 +48,16 @@ const Auth = ({setIsLogin}) => {
                     </div>
                 </div>
                 <button className="login-btn" onClick={handleLogin}>Login</button>
-                <button className="register-btn" onClick={switchPage}>Register</button>
+                <button className="signup-btn" onClick={switchPage}>Signup</button>
             </div>}
             {!isLoginPage && <div className="signup-container">
-                <button className="back" onClick={switchPage}>back</button>
+                <BiArrowBack className="back" onClick={switchPage}/>
                 <input className="login" type="text" placeholder="Enter login" onChange={e=>setUsername(e.target.value)}></input>
                 <input className="password" type="password" placeholder="Enter password" onChange={e=>setPassword(e.target.value)}></input>
                 <input className="password" type="password" placeholder="Repeat password" onChange={e=>setPassword(e.target.value)}></input>
-                <input className="mail" type="mail" placeholder="mail" onChange={e=>setPassword(e.target.value)}></input>
-                <button className="register-btn">Register</button>
+                <input className="mail" type="mail" placeholder="Enter mail" onChange={e=>setMail(e.target.value)}></input>
+                <button className="signup-signup-btn" onClick={handleSignup}>Signup</button>
+            
             </div>
 
             }
