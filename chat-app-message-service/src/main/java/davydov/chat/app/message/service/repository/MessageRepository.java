@@ -9,12 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public interface MessageRepository extends CrudRepository<Message, Long> {
-
-    List<Message> findByChatId(String chatId);
 
     @Transactional
     @Modifying
@@ -22,4 +19,5 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
     void updateStatus(@Param("status") MessageStatus status, @Param("sender_id") String senderId, @Param("recipient_id") String recipientId);
 
     Long countBySenderIdAndRecipientIdAndMessageStatus(String senderId, String recipientId, MessageStatus messageStatus);
+
 }

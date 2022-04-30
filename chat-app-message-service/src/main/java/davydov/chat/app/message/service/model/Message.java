@@ -5,12 +5,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Entity
@@ -53,6 +57,8 @@ public class Message {
     @Column(name = "recipient_name")
     private String recipientName;
 
-    @Column(name = "chat_id")
-    private String chatId;
+    @ManyToMany
+    private List<ChatRoom> chatRooms;
+
+    public Message() {}
 }

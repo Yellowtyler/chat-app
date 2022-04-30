@@ -1,5 +1,6 @@
 package davydov.chat.app.message.service.contoller;
 
+import davydov.chat.app.message.service.dto.ChatDTO;
 import davydov.chat.app.message.service.model.Message;
 import davydov.chat.app.message.service.model.MessageNotification;
 import davydov.chat.app.message.service.service.ChatRoomService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class ChatController {
@@ -23,9 +26,9 @@ public class ChatController {
 
     @MessageMapping("/chat")
     public void processMessage(@Payload Message message) {
-        var chatId = chatRoomService.getChatId(message.getSenderId(), message.getRecipientId()).get();
+        var chats = chatRoomService.getOrCreateChatRooms(message.getSenderId(), message.getRecipientId());
 
-        message.setChatId(chatId);
+        message.setChatRooms(chats);
 
         messageService.save(message);
 
@@ -54,5 +57,10 @@ public class ChatController {
     @GetMapping("/messages/{senderId}/{recipientId}/count")
     public ResponseEntity<Long> countReceivedMessages(@PathVariable String senderId, @PathVariable String recipientId) {
         return ResponseEntity.ok(messageService.countReceivedMessages(senderId, recipientId));
+    }
+
+    @GetMapping("/chats/{id}")
+    public ResponseEntity<List<ChatDTO>> getUserChats(@PathVariable String id) {
+        return ResponseEntity.ok(chatRoomService.getChats(id));
     }
 }

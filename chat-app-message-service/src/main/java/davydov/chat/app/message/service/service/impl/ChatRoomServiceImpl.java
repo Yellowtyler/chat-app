@@ -1,13 +1,16 @@
 package davydov.chat.app.message.service.service.impl;
 
+import davydov.chat.app.message.service.dto.ChatDTO;
 import davydov.chat.app.message.service.model.ChatRoom;
+import davydov.chat.app.message.service.model.Message;
 import davydov.chat.app.message.service.repository.ChatRoomRepository;
 import davydov.chat.app.message.service.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,26 +19,43 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     private final ChatRoomRepository repository;
 
     @Override
-    public Optional<String> getChatId(String senderId, String recipientId) {
-        return repository.findBySenderIdAndRecipientId(senderId, recipientId)
-                .map(ChatRoom::getChatId)
-                .or(() -> {
-                    String newChatId = UUID.randomUUID().toString();
-                    var senderRecipient = ChatRoom.builder()
-                            .senderId(senderId)
-                            .recipientId(recipientId)
-                            .chatId(newChatId)
-                            .build();
+    public List<ChatRoom> getOrCreateChatRooms(String senderId, String recipientId) {
+        var chatRoom = repository.findBySenderIdAndRecipientId(senderId, recipientId);
+        if (chatRoom.isEmpty()) {
+            String newChatId = UUID.randomUUID().toString();
+            var senderRecipient = ChatRoom.builder()
+                    .senderId(senderId)
+                    .recipientId(recipientId)
+                    .chatRoomId(newChatId)
+                    .build();
 
-                    var recipientSender = ChatRoom.builder()
-                            .senderId(recipientId)
-                            .recipientId(senderId)
-                            .chatId(newChatId)
-                            .build();
+            var recipientSender = ChatRoom.builder()
+                    .senderId(recipientId)
+                    .recipientId(senderId)
+                    .chatRoomId(newChatId)
+                    .build();
 
-                    repository.save(senderRecipient);
-                    repository.save(recipientSender);
-                    return java.util.Optional.ofNullable(newChatId);
-                });
+            repository.save(senderRecipient);
+            repository.save(recipientSender);
+            return List.of(senderRecipient, recipientSender);
+        } else {
+            var otherChatRoom = repository.findBySenderIdAndRecipientId(recipientId, senderId);
+            return List.of(chatRoom.get(), otherChatRoom.get());
+        }
+    }
+
+    @Override
+    public List<ChatDTO> getChats(String id) {
+        return repository.findBySenderId(id).stream().map(this::mapToDto).collect(Collectors.toList());
+    }
+
+    private ChatDTO mapToDto(ChatRoom chat) {
+        Message lastMessage = chat.getMessages().get(chat.getMessages().size()-1);
+        return ChatDTO.builder()
+                .chatId(chat.getChatRoomId())
+                .recipientId(chat.getRecipientId())
+                .recipientName(lastMessage.getRecipientName())
+                .lastMessage(lastMessage.getContent())
+                .build();
     }
 }
