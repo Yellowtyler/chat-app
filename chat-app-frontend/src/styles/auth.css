@@ -1,11 +1,9 @@
-
 .container {
     margin-left: auto;
     margin-right: auto;
-    padding-right: 15px;
-    padding-left: 15px;
     min-height: 100vh;
     background-image: url("./../images/background.png");
+    background-size: cover;
   }
   
 .auth-page {
@@ -99,6 +97,7 @@
   align-items: center; 
   justify-content: center;
   background-color: white;
+  color: white;
   flex-direction: column;
   min-height: 170px;
   height: 200px;
@@ -114,8 +113,9 @@
   size: 14px;
   overflow: visible;
   margin-right: 8.5rem;
-  margin-bottom: 1ch;
+  margin-bottom: 1.3ch;
   cursor: pointer;
+  color: black;
 }
 
 .login-signup {
