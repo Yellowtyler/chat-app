@@ -71,7 +71,6 @@ class ChatControllerTest {
         var message = Message.builder()
                 .messageStatus(MessageStatus.DELIVERED)
                 .id(id)
-                .chatId("1")
                 .content("hi")
                 .recipientId("1")
                 .senderId("2")

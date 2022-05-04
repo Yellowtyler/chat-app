@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         var user = new User(
                 signupRequest.getUsername(),
                 passwordEncoder.encode(signupRequest.getPassword()),
-                signupRequest.getEmail(),
+                signupRequest.getMail(),
                 roleRepository.findByName("ROLE_USER")
         );
         userRepository.save(user);
