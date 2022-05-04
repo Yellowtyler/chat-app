@@ -3,6 +3,7 @@ import { validateUsername, validateMail, validatePassword } from '../utils/Valid
 import './../styles/auth.css';
 import { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
+import { Alert, Button } from 'react-bootstrap';
 const Auth = ({setIsLogin}) => {
 
     const [isLoginPage, setIsLoginPage] = useState(true);
@@ -18,6 +19,8 @@ const Auth = ({setIsLogin}) => {
     const [passwordFieldColor, setPasswordFieldColor] = useState('black');
     const [repeatPasswordFieldColor, setRepeatPasswordFieldColor] = useState('black');
     const [mailFieldColor, setMailFieldColor] = useState('black');
+
+    const [show, setShow] = useState(false);
 
     const handleLogin = (e) => {
         const login = {
@@ -47,8 +50,9 @@ const Auth = ({setIsLogin}) => {
                 password: password,
                 mail: mail
             };
-            signupUser(signupRequest).then(()=>setIsLoginPage(true), error => {
-                if (error.response.status === 401) {
+            console.log(JSON.stringify(signupRequest));
+            signupUser(signupRequest).then(()=>setShow(true), error => {
+                if (error.response.status === 400) {
                     setErrorMsg('This username already exists!');
                     setUsernameFieldColor('red');
                 }
@@ -64,6 +68,7 @@ const Auth = ({setIsLogin}) => {
             setErrorMsg('');
             setUsernameFieldColor('black');
         }
+        setUsername(username);
     }
 
     const changeAndValidatePassword = (password) => {
@@ -127,7 +132,7 @@ const Auth = ({setIsLogin}) => {
                 <button className="login-btn" onClick={handleLogin}>Login</button>
                 <button className="signup-btn" onClick={switchPage}>Signup</button>
             </div>}
-            {!isLoginPage && <div className="signup-container">
+            {!isLoginPage && !show && <div className="signup-container">
                 <BiArrowBack className="back" onClick={switchPage}/>
                 <input className="login-signup" type="text"  style={{'color': usernameFieldColor}} placeholder="Enter login" onChange={e=>changeAndValidateUsername(e.target.value)}></input>
                 <input className="password-signup" style={{'color': passwordFieldColor}} type="password" placeholder="Enter password" onChange={e=>changeAndValidatePassword(e.target.value)}></input>
@@ -136,6 +141,15 @@ const Auth = ({setIsLogin}) => {
                 { errorMsg.length > 0 && <span className="error-message">{errorMsg}</span>}
                 <button className="signup-signup-btn" onClick={handleSignup}>Signup</button>
             </div>}
+            {!isLoginPage && show &&                
+            <Alert show={show} variant="success" className="auth-alert">
+                <Alert.Heading>You successfully signed up!</Alert.Heading>
+                <div className="d-flex justify-content-end">
+                    <Button onClick={() => {setShow(false); switchPage();}} variant="outline-success">
+                    Go to Login page
+                    </Button>
+                </div>
+            </Alert>}
         </div>
         </div>
     );

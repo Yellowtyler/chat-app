@@ -156,3 +156,10 @@
   margin-left: 1rem;
   font-size: 10px;
 }
+
+.auth-alert {
+  color: green;
+  border: rgb(62, 95, 185);
+  background-color: white;
+  overflow: visible;
+}
