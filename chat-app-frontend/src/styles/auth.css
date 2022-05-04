@@ -7,7 +7,7 @@
   }
   
 .auth-page {
-    padding: 1rem;
+    padding: 2rem;
     height: 400px;
     display: flex;
     align-items: center; 
@@ -22,11 +22,11 @@
   color: white;
   display: flex;
   align-items: center; 
-  justify-content: space-between;
-  border-color: grey;
+  justify-content: space-around;
   border: solid 0.1em;
   flex-direction: column;
-  min-height: 170px;
+  min-height: 300px;
+  min-width: 220px;
   height: 200px;
   margin: 0;
   position: absolute;
@@ -41,7 +41,7 @@
   border: 0ch;
   border-bottom: solid 0.1em;
   margin-top: 2rem;
-  transform: scale(0.9);
+
 }
 
 .password {
@@ -49,13 +49,12 @@
   border: 0ch;
   border-bottom: solid 0.1em;
   margin-top: 2rem;
-  transform: scale(0.9);
   margin-top: 1rem;
 }
 
 .forgot-password {
-  font-size: 12px;
-  margin-right: 3.4rem;
+  font-size: 14px;
+  margin-right: 3.5rem;
 }
 
 .btn-container {
@@ -65,10 +64,10 @@
 
 .login-btn {
   border: none;
-  width: 90%;
+  width: 80%;
+  height: 10%;
   display: block;
   border-radius: 15px;
-  margin-top: 0.4rem;
   cursor: pointer;
   color: white;
   background-color: rgb(62, 95, 185);
@@ -76,12 +75,12 @@
 
 .signup-btn {
   border: none;
-  width: 90%;
+  width: 80%;
+  height: 10%;
   display: inline-table;
   cursor: pointer;
   border-radius: 15px;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5em;
+  margin-bottom: 1.3em;
   color: rgb(62, 95, 185);
   background-color: #e1e7f5;
 }
@@ -93,13 +92,15 @@
 .signup-container {
   border-radius: 10px;
   vertical-align: middle;
-  display: flex;
-  align-items: center; 
-  justify-content: center;
   background-color: white;
   color: white;
+  display: flex;
+  align-items: center; 
+  justify-content: space-around;
+  border: solid 0.1em;
   flex-direction: column;
-  min-height: 170px;
+  min-height: 300px;
+  min-width: 220px;
   height: 200px;
   margin: 0;
   position: absolute;
@@ -112,8 +113,8 @@
 .back {
   size: 14px;
   overflow: visible;
-  margin-right: 8.5rem;
-  margin-bottom: 1.3ch;
+  margin-right: 9.5rem;
+  margin-bottom: 3ch;
   cursor: pointer;
   color: black;
 }
@@ -121,31 +122,37 @@
 .login-signup {
   border: 0ch;
   border-bottom: solid 0.1em;
-  transform: scale(0.9);
+  border-color: black;
 }
 
 .password-signup {
   border: 0ch;
   border-bottom: solid 0.1em;
-  transform: scale(0.9);
   margin-top: 1rem;
 }
 
 .mail {
   border: 0ch;
-  border-bottom: solid 0.1em;
-  margin-bottom: 1em;
+  border-bottom: solid 0.1em;;
   margin-top: 1rem;
-  transform: scale(0.9);
 }
 
 .signup-signup-btn {
   border: none;
-  width: 90%;
+  width: 80%;
+  height: 10%;
   display: inline-table;
   cursor: pointer;
   border-radius: 15px;
-  margin-top: 0.6rem;
+  margin-top: 1rem;
+  margin-bottom: 1.3em;
   color: white;
   background-color: rgb(62, 95, 185);
+}
+
+.error-message {
+  color: red;
+  display: inline;
+  margin-left: 1rem;
+  font-size: 10px;
 }

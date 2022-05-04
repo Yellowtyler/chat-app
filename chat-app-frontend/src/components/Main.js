@@ -1,5 +1,4 @@
 
-import { useState, useEffect } from "react";
 import ChatList from './ChatList';
 import Chat from './Chat';
 import Search from './Search';
