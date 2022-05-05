@@ -11,6 +11,10 @@ spring:
     hibernate:
       ddl-auto: update
 
+logging:
+  level:
+    org.springframework.web: DEBUG
+
 server:
   port: 8080
 
@@ -19,4 +23,4 @@ jwt:
   header: Authorization
   prefix: Bearer
   expiration: 300
-  secret: JwtSecretKey
+  secret: JwtSuperBigFuckYeahWhatElseToWriteOMGSecretKey

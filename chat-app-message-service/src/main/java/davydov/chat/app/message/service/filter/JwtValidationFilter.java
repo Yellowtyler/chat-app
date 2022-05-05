@@ -3,6 +3,7 @@ package davydov.chat.app.message.service.filter;
 import davydov.chat.app.message.service.property.JwtProperty;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,6 +20,7 @@ import java.util.Objects;
 // TODO: find way to mock filter in test
 @Profile("!test")
 @Component
+@Slf4j
 public class JwtValidationFilter extends OncePerRequestFilter {
 
     private JwtProperty jwtProperty;
@@ -28,9 +30,11 @@ public class JwtValidationFilter extends OncePerRequestFilter {
         var authHeader = request.getHeader("Authorization");
         if (Objects.nonNull(authHeader)) {
             if (!this.isValid(authHeader)) {
+                log.error("doFilterInternal() - jwt token is expired!");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
             }
         } else {
+            log.error("doFilterInternal() - jwt token is expired!");
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
         }
         filterChain.doFilter(request, response);

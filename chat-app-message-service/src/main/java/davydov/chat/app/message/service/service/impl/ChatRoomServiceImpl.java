@@ -56,6 +56,8 @@ public class ChatRoomServiceImpl implements ChatRoomService {
                 .recipientId(chat.getRecipientId())
                 .recipientName(lastMessage.getRecipientName())
                 .lastMessage(lastMessage.getContent())
+                .lastMessageDate(lastMessage.getCreationDate())
+                .lastMessageUser(lastMessage.getSenderName())
                 .build();
     }
 }
