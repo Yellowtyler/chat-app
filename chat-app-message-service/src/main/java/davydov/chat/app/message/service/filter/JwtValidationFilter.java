@@ -27,16 +27,16 @@ public class JwtValidationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var authHeader = request.getHeader("Authorization");
-        if (Objects.nonNull(authHeader)) {
-            if (!this.isValid(authHeader)) {
-                log.error("doFilterInternal() - jwt token is expired!");
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
-            }
-        } else {
-            log.error("doFilterInternal() - jwt token is expired!");
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
-        }
+//        var authHeader = request.getHeader("Authorization");
+//        if (Objects.nonNull(authHeader)) {
+//            if (!this.isValid(authHeader)) {
+//                log.error("doFilterInternal() - jwt token is expired!");
+//                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
+//            }
+//        } else {
+//            log.error("doFilterInternal() - jwt token is expired!");
+//            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
+//        }
         filterChain.doFilter(request, response);
     }
 

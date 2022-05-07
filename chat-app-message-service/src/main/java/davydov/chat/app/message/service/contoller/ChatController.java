@@ -11,11 +11,14 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.HashSet;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @Controller
 public class ChatController {
@@ -28,7 +31,7 @@ public class ChatController {
     public void processMessage(@Payload Message message) {
         var chats = chatRoomService.getOrCreateChatRooms(message.getSenderId(), message.getRecipientId());
 
-        message.setChatRooms(chats);
+        message.setChatRooms(new HashSet<>(chats));
 
         messageService.save(message);
 

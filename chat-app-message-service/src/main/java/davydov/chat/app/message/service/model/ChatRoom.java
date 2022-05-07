@@ -1,12 +1,13 @@
 package davydov.chat.app.message.service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ import java.util.List;
 public class ChatRoom {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "chat_room_id")
@@ -30,8 +31,9 @@ public class ChatRoom {
     private String recipientId;
 
     // TODO: figure out about cascade. There might be issue with read/write from db
-    @ManyToMany
-    private List<Message> messages;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "chatRooms")
+    private Set<Message> messages;
 
     public ChatRoom() {
     }

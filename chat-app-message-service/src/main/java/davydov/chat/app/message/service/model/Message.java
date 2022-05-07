@@ -1,6 +1,7 @@
 package davydov.chat.app.message.service.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -14,7 +15,7 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Builder
 @Entity
@@ -29,7 +30,7 @@ import java.util.List;
 public class Message {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "sender_id")
@@ -57,8 +58,9 @@ public class Message {
     @Column(name = "recipient_name")
     private String recipientName;
 
+    @JsonIgnore
     @ManyToMany
-    private List<ChatRoom> chatRooms;
+    private Set<ChatRoom> chatRooms;
 
     public Message() {}
 }

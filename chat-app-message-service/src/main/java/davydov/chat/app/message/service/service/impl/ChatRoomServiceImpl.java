@@ -8,6 +8,7 @@ import davydov.chat.app.message.service.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -50,9 +51,14 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     }
 
     private ChatDTO mapToDto(ChatRoom chat) {
-        Message lastMessage = chat.getMessages().get(chat.getMessages().size()-1);
+        if (chat.getMessages().size()-1 == -1) {
+            return null;
+        }
+
+        var lastMessage = chat.getMessages().stream().max(Comparator.comparing(Message::getCreationDate)).get();
+
         return ChatDTO.builder()
-                .chatId(chat.getChatRoomId())
+                .chatId(String.valueOf(chat.getId()))
                 .recipientId(chat.getRecipientId())
                 .recipientName(lastMessage.getRecipientName())
                 .lastMessage(lastMessage.getContent())
