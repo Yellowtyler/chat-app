@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,10 +45,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginResponse authenticateUser(LoginRequest loginRequest) {
-        var user = userDetailsService.loadUserByUsername(loginRequest.getUsername());
-        var token = new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword(), user.getAuthorities());
+        var user = userRepository.findByUsername(loginRequest.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s username not found", loginRequest.getUsername())));
+        var token = new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword());
         var authentication = authenticationManager.authenticate(token);
-        return new LoginResponse(tokenProvider.generateToken(authentication));
+        return new LoginResponse(tokenProvider.generateToken(authentication, user.getId()));
     }
 
 }
