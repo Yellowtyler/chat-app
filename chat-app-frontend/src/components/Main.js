@@ -11,10 +11,18 @@ import { getChats } from '../api/MessageService';
 const Main = ({setIsLogin}) => {
 
     const [chatList, setChatList] = useState([]);
+    const [openedChat, setOpenedChat] = useState({
+        chatId: null,
+        lastMessage: "hi",
+        lastMessageDate: "2022-05-07T21:29:54.619371",
+        lastMessageUser: null,
+        recipientId: "1",
+        recipientName: null
+    });
 
     useEffect(()=>{
         getChats(getCurrentUser()).then(response=>{
-            setChatList(response);
+            setChatList(response.data);
             console.log(response);
         }, error=>{
             if (error.response.status === 401) {
@@ -33,11 +41,9 @@ const Main = ({setIsLogin}) => {
             <div className="messanger-container">
                 <div className="chat-and-search-container">
                     <Search/>
-                    <ChatList chatList={chatList}/>
+                    <ChatList chatList={chatList} setOpenedChat={setOpenedChat}/>
                 </div> 
-                <div>
-                    <Chat/>
-                </div>
+                { openedChat.chatId !== null && <Chat chat={openedChat}/>}
             </div>
         </div>
     );

@@ -14,6 +14,7 @@ export const loginUser = (login) => {
 
 export const getCurrentUser = () => {
     let tokenData = jwtDecode(localStorage.getItem("accessToken"));
+    console.log(tokenData);
     return tokenData.sub;
 };
 
