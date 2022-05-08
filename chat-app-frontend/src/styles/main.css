@@ -70,4 +70,16 @@
 }
 
 .chat-container {
+    width: 100%;
+    border-radius: 8px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+
+.chat-input-container {
+    align-items: center;
+    display: inline;
+    flex-direction: column;
+    justify-content: center;
 }

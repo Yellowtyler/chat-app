@@ -5,26 +5,22 @@ import Search from './Search';
 import './../styles/main.css';
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { getCurrentUser, logout } from '../api/AuthService';
+import { getCurrentUserId, logout } from '../api/AuthService';
 import { getChats } from '../api/MessageService';
+import { useRecoilState } from 'recoil';
+import { chat } from "../utils/GlobalState";
 
 const Main = ({setIsLogin}) => {
 
     const [chatList, setChatList] = useState([]);
-    const [openedChat, setOpenedChat] = useState({
-        chatId: null,
-        lastMessage: "hi",
-        lastMessageDate: "2022-05-07T21:29:54.619371",
-        lastMessageUser: null,
-        recipientId: "1",
-        recipientName: null
-    });
+    const [openedChat, setOpenedChat] = useRecoilState(chat);
 
-    useEffect(()=>{
-        getChats(getCurrentUser()).then(response=>{
+    useEffect(() => {
+        getChats(getCurrentUserId()).then(response=>{
             setChatList(response.data);
             console.log(response);
-        }, error=>{
+        }, error => {
+            console.log(error);
             if (error.response.status === 401) {
                 logout();
                 setIsLogin(false);

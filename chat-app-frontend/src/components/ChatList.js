@@ -1,11 +1,11 @@
 
 import ChatBox from './ChatBox';
 
-const ChatList = ({chatList, setOpenedChat}) => {
+const ChatList = ({chatList}) => {
     return (
     <ul className="chat-list-container">
         {
-            chatList.map(chat => (<ChatBox chat={chat} setOpenedChat={setOpenedChat}/>))
+            chatList.map(chatBox => (<ChatBox chatBox={chatBox}/>))
         }
     </ul>
     );

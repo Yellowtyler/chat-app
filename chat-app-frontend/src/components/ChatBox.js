@@ -1,24 +1,26 @@
 import { useState } from "react";
+import { useRecoilState } from 'recoil';
+import { chat } from '../utils/GlobalState';
 
-const ChatBox = ({ chat, setOpenedChat }) => {
+const ChatBox = ({ chatBox }) => {
 
     const [backgroundColor, setBackgroundColor] = useState('white');    
+    const [openedChat, setOpenedChat] = useRecoilState(chat);
 
     return (
         <li className="chat-box-container" 
-            style={{'background-color': backgroundColor}} 
+            style={{'backgroundColor': backgroundColor}} 
             onMouseOver={e=>setBackgroundColor('whitesmoke')} 
             onMouseOut={e=>setBackgroundColor('white')} 
             onMouseDown={e=>setBackgroundColor('grey')}
-            onClick={e=>{console.log(chat); setOpenedChat(chat);}}
-            >
+            onClick={e=>setOpenedChat(chatBox)}>
             <p className="title">
-              <span className="username">{chat.recipientName}</span>
-              <span className="time">{chat.lastMessageDate}</span>  
+              <span className="username">{chatBox.recipientName}</span>
+              <span className="time">{chatBox.lastMessageDate}</span>  
             </p>
             <p className="last-message-box">
-                <span className="last-message-user">{chat.lastMessageUser}:</span>
-                <span className="last-message">{chat.lastMessage}</span>
+                <span className="last-message-user">{chatBox.lastMessageUser}:</span>
+                <span className="last-message">{chatBox.lastMessage}</span>
             </p>
         </li>
     );
