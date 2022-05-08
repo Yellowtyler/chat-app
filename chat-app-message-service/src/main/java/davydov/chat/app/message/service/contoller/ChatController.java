@@ -46,6 +46,7 @@ public class ChatController {
         );
     }
 
+    //todo: DELETE chat
     @GetMapping("/messages/{senderId}/{recipientId}")
     public ResponseEntity<?> getAllMessages(@PathVariable String senderId, @PathVariable String recipientId) {
         return ResponseEntity.ok(messageService.getAllMessages(senderId, recipientId));
