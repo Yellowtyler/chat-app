@@ -8,7 +8,9 @@ import davydov.chat.app.message.service.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static davydov.chat.app.message.service.model.MessageStatus.DELIVERED;
 import static davydov.chat.app.message.service.model.MessageStatus.RECEIVED;
@@ -21,12 +23,12 @@ public class MessageServiceImpl implements MessageService {
     private final ChatRoomRepository chatRoomRepository;
 
     @Override
-    public Set<Message> getAllMessages(String senderId, String recipientId) {
+    public List<Message> getAllMessages(String senderId, String recipientId) {
         var chatRoom = chatRoomRepository.findBySenderIdAndRecipientId(senderId, recipientId).get();
         if (chatRoom.getMessages().size() > 0) {
             updateStatus(senderId, recipientId, DELIVERED);
         }
-        return chatRoom.getMessages();
+        return chatRoom.getMessages().stream().sorted(Comparator.comparing(Message::getCreationDate)).collect(Collectors.toUnmodifiableList());
     }
 
     @Override

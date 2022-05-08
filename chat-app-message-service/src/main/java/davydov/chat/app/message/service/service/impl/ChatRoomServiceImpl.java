@@ -47,7 +47,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
     @Override
     public List<ChatDTO> getChats(String id) {
-        return repository.findBySenderId(id).stream().map(this::mapToDto).collect(Collectors.toList());
+        return repository.findBySenderId(id).stream().map(this::mapToDto).sorted(Comparator.comparing(ChatDTO::getLastMessageDate).reversed()).collect(Collectors.toList());
     }
 
     private ChatDTO mapToDto(ChatRoom chat) {

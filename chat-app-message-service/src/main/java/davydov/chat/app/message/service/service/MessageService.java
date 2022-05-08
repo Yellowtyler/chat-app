@@ -2,10 +2,10 @@ package davydov.chat.app.message.service.service;
 
 import davydov.chat.app.message.service.model.Message;
 
-import java.util.Set;
+import java.util.List;
 
 public interface MessageService {
-    Set<Message> getAllMessages(String senderId, String recipientId);
+    List<Message> getAllMessages(String senderId, String recipientId);
 
     Message getMessage(String id);
 

@@ -12,9 +12,8 @@ export const loginUser = (login) => {
     .then(response => localStorage.setItem("accessToken", response.data.token));
 };
 
-export const getCurrentUser = () => {
+export const getCurrentUserId = () => {
     let tokenData = jwtDecode(localStorage.getItem("accessToken"));
-    console.log(tokenData);
     return tokenData.sub;
 };
 
