@@ -21,3 +21,14 @@ export const isLoggedUser = atom({
     key: "isLoggedUser",
     default: localStorage.getItem("accessToken") ? true : false
 });
+
+
+export const popupMessage = atom({
+    key: "popupMessage",
+    default: 'saffsafaffasfsa'
+});
+
+export const popupActive = atom({
+    key: "popupActive",
+    default: true
+});

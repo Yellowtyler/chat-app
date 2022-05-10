@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { getCurrentUserId } from "../api/APIUtils";
+import { getCurrentUserId, handleError } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
 import Dialog from "./Dialog";
 import { chatMessages } from "../recoil/example/atom";
 import { useRecoilState } from "recoil";
-import { logout } from "../api/AuthAPI";
-import { isLoggedUser } from '../recoil/example/atom';
+import { popupMessage } from '../recoil/example/atom';
 
 var stompClient = null;
 
-const Chat = ({ chat }) => {
+const Chat = ({ chat, setActivePopup }) => {
 
     const [messages, setMessages] = useRecoilState(chatMessages);
     const [sendText, setSendText] = useState('');
-    const [isLogin, setIsLogin] = useRecoilState(isLoggedUser);
+    const [popupMessage1, setPopupMessage] = useRecoilState(popupMessage);
 
     useEffect(() => {
         getAllMessages(getCurrentUserId(), chat.recipientId).then(response => {
             setMessages(response.data);
         }, error => {
-            logout();
-            setIsLogin(false);
-
+            setPopupMessage(handleError(error.response.status));
+            setActivePopup(true);
         });
         connect();
     }, [chat.chatId]);
@@ -76,7 +74,7 @@ const Chat = ({ chat }) => {
 
     return (
         <div className="chat-container">
-                <Dialog chat={chat}/>
+                <Dialog chat={chat} setActivePopup={setActivePopup}/>
                 <div className="chat-input-container">
                     <input className="text-input" type="text" placeholder="Enter text" value={sendText} onChange={e=>setSendText(e.target.value)} 
                         onKeyPress={(event) => {

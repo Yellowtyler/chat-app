@@ -1,0 +1,24 @@
+
+.popup {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    left:0;
+    top: 0;
+    justify-content: center;
+    pointer-events:inherit;
+}
+
+.popup-content {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    width: 50vh;
+    display: flex;
+    pointer-events: all;
+    justify-content: space-between;
+    flex-direction: column;
+};
