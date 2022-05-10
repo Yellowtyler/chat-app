@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -28,14 +29,17 @@ public class JwtValidationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var authHeader = request.getHeader("Authorization");
-        if (Objects.nonNull(authHeader)) {
-            if (this.isExpired(authHeader)) {
+        // TODO: find a way that allows to validate jwt token when http handshake happening
+        if (!Objects.equals(request.getMethod(), HttpMethod.OPTIONS.name()) && !request.getServletPath().contains("ws")) {
+            var authHeader = request.getHeader("Authorization");
+            if (Objects.nonNull(authHeader)) {
+                if (this.isExpired(authHeader)) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
+                }
+            } else {
+                log.error("doFilterInternal() - Authorization header is absent!");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
             }
-        } else {
-            log.error("doFilterInternal() - Authorization header is absent!");
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "jwt token is expired!");
         }
         filterChain.doFilter(request, response);
     }
@@ -43,10 +47,11 @@ public class JwtValidationFilter extends OncePerRequestFilter {
     private boolean isExpired(String authHeader) {
         try {
            Jwts.parserBuilder()
-                .setSigningKey(jwtProperty.getSecret().getBytes())
-                .build()
-                .parse(authHeader.split(" ")[1])
-                .getBody();
+                   .setSigningKey(jwtProperty.getSecret().getBytes())
+                   .setAllowedClockSkewSeconds(jwtProperty.getExpiration())
+                   .build()
+                   .parse(authHeader.split(" ")[1])
+                   .getBody();
         } catch (ExpiredJwtException e) {
             log.error("isExpired() - {}", e.getMessage());
             return true;
