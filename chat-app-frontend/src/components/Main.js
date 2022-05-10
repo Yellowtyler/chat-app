@@ -1,4 +1,4 @@
-import ChatList from './ChatList';
+import ChatBox from './ChatBox';
 import Chat from './Chat';
 import Search from './Search';
 import './../styles/main.css';
@@ -35,7 +35,9 @@ const Main = ({setIsLogin, setActivePopup}) => {
             <div className="messanger-container">
                 <div className="chat-and-search-container">
                     <Search/>
-                    <ChatList chatList={chatList}/>
+                    <ul className="chat-list-container">
+                    {chatList.map(chatBox => (<ChatBox chatBox={chatBox}/>))}
+                    </ul>
                 </div> 
                 { openedChat.chatId !== null && <Chat chat={openedChat} setActivePopup={setActivePopup}/>}
             </div>
