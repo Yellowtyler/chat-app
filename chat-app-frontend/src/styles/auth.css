@@ -158,8 +158,16 @@
 }
 
 .auth-alert {
-  color: green;
-  border: rgb(62, 95, 185);
-  background-color: white;
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
   overflow: visible;
+  border-radius: 8px;
+  height: 10vh;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }

@@ -3,7 +3,7 @@ import { validateUsername, validateMail, validatePassword } from '../utils/Valid
 import './../styles/auth.css';
 import { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
-import { Alert, Button } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 
 const Auth = ({setIsLogin}) => {
 
@@ -142,15 +142,15 @@ const Auth = ({setIsLogin}) => {
                 { errorMsg.length > 0 && <span className="error-message">{errorMsg}</span>}
                 <button className="signup-signup-btn" onClick={handleSignup}>Signup</button>
             </div>}
-            {!isLoginPage && show &&                
+                 
             <Alert show={show} variant="success" className="auth-alert">
                 <Alert.Heading>You successfully signed up!</Alert.Heading>
                 <div className="d-flex justify-content-end">
-                    <Button onClick={() => {setShow(false); switchPage();}} variant="outline-success">
+                    <button className="auth-alert-btn" onClick={() => {setShow(false); switchPage();}}>
                     Go to Login page
-                    </Button>
+                    </button>
                 </div>
-            </Alert>}
+            </Alert>
         </div>
         </div>
     );
