@@ -1,8 +1,8 @@
 import MessageBox from "./MessageBox";
 import { useRecoilState } from "recoil";
-import { chatMessages } from "../utils/GlobalState";
-import { getCurrentUserId } from "../api/AuthService";
-import { getAllMessages } from "../api/MessageService";
+import { chatMessages } from "../recoil/example/atom";
+import { getCurrentUserId } from "../api/APIUtils";
+import { getAllMessages } from "../api/MessageAPI";
 import { useEffect } from "react";
 
 const Dialog = ({ chat }) => {

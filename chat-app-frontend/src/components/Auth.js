@@ -1,4 +1,4 @@
-import { loginUser, signupUser } from './../api/AuthService';
+import { loginUser, signupUser } from '../api/AuthAPI';
 import { validateUsername, validateMail, validatePassword } from '../utils/ValidationUtils';
 import './../styles/auth.css';
 import { useState } from 'react';

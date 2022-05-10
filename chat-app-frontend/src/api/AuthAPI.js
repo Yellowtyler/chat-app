@@ -1,5 +1,4 @@
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 
 const AUTH_SERVICE_URL = "http://localhost:8081/auth";
 
@@ -12,18 +11,6 @@ export const loginUser = (login) => {
     .then(response => localStorage.setItem("accessToken", response.data.token));
 };
 
-export const getCurrentUserId = () => {
-    let tokenData = jwtDecode(localStorage.getItem("accessToken"));
-    return tokenData.sub;
-};
-
 export const logout = () => {
     localStorage.removeItem("accessToken");
 };
-
-export const authHeader = () => {
-    var accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-        return {Authorization: 'Bearer ' + accessToken};
-    }
-}

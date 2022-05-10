@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import { getCurrentUserId } from "../api/AuthService";
+import { getCurrentUserId } from "../api/APIUtils";
 
 const MessageBox = ({ message }) => {
 

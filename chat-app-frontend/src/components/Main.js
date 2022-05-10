@@ -5,10 +5,11 @@ import Search from './Search';
 import './../styles/main.css';
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { getCurrentUserId, logout } from '../api/AuthService';
-import { getChats } from '../api/MessageService';
+import { logout } from '../api/AuthAPI';
+import { getCurrentUserId } from '../api/APIUtils';
+import { getChats } from '../api/MessageAPI';
 import { useRecoilState } from 'recoil';
-import { chat } from "../utils/GlobalState";
+import { chat } from "../recoil/example/atom";
 
 const Main = ({setIsLogin}) => {
 

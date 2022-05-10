@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilState } from 'recoil';
-import { chat } from '../utils/GlobalState';
+import { chat } from '../recoil/example/atom';
 
 const ChatBox = ({ chatBox }) => {
 

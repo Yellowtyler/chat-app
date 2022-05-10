@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authHeader } from "./AuthService";
+import { authHeader } from "./APIUtils";
 
 const MESSAGE_SERVICE_URL = 'http://localhost:8080';
 

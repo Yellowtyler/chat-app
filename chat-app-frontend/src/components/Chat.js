@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { getCurrentUserId } from "../api/AuthService";
-import { getAllMessages } from "../api/MessageService";
+import { getCurrentUserId } from "../api/APIUtils";
+import { getAllMessages } from "../api/MessageAPI";
 import Dialog from "./Dialog";
-import { chatMessages } from "../utils/GlobalState";
+import { chatMessages } from "../recoil/example/atom";
 import { useRecoilState } from "recoil";
 
 var stompClient = null;
