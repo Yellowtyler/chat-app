@@ -22,6 +22,7 @@ const Main = ({setIsLogin}) => {
             console.log(response);
         }, error => {
             console.log(error);
+            console.log(error.response.status);
             if (error.response.status === 401) {
                 logout();
                 setIsLogin(false);
@@ -38,7 +39,7 @@ const Main = ({setIsLogin}) => {
             <div className="messanger-container">
                 <div className="chat-and-search-container">
                     <Search/>
-                    <ChatList chatList={chatList} setOpenedChat={setOpenedChat}/>
+                    <ChatList chatList={chatList}/>
                 </div> 
                 { openedChat.chatId !== null && <Chat chat={openedChat}/>}
             </div>

@@ -4,6 +4,7 @@ import './../styles/auth.css';
 import { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
 import { Alert, Button } from 'react-bootstrap';
+
 const Auth = ({setIsLogin}) => {
 
     const [isLoginPage, setIsLoginPage] = useState(true);

@@ -2,6 +2,7 @@ import jwtDecode from "jwt-decode";
 
 export const authHeader = () => {
     var accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
     if (accessToken) {
         return {Authorization: 'Bearer ' + accessToken};
     }

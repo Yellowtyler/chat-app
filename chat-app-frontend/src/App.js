@@ -1,10 +1,11 @@
 import Auth from './components/Auth';
-import { useState } from 'react';
 import Main from './components/Main';
+import { useRecoilState } from 'recoil';
+import { isLoggedUser } from './recoil/example/atom';
 
 const App = () => {
 
-  const [isLogin, setIsLogin] = useState(localStorage.getItem("accessToken") ? true : false);
+  const [isLogin, setIsLogin] = useRecoilState(isLoggedUser);
 
   return (
     <div className='container'>

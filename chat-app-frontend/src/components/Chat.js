@@ -5,6 +5,8 @@ import { getAllMessages } from "../api/MessageAPI";
 import Dialog from "./Dialog";
 import { chatMessages } from "../recoil/example/atom";
 import { useRecoilState } from "recoil";
+import { logout } from "../api/AuthAPI";
+import { isLoggedUser } from '../recoil/example/atom';
 
 var stompClient = null;
 
@@ -12,11 +14,16 @@ const Chat = ({ chat }) => {
 
     const [messages, setMessages] = useRecoilState(chatMessages);
     const [sendText, setSendText] = useState('');
-    
+    const [isLogin, setIsLogin] = useRecoilState(isLoggedUser);
+
     useEffect(() => {
         getAllMessages(getCurrentUserId(), chat.recipientId).then(response => {
             setMessages(response.data);
-        }, error => console.log(error));
+        }, error => {
+            logout();
+            setIsLogin(false);
+
+        });
         connect();
     }, [chat.chatId]);
 
@@ -50,12 +57,12 @@ const Chat = ({ chat }) => {
     const sendMessage = () => {
         if (sendText.trim() !== "") {
             const message = {
-              senderId: getCurrentUserId(),
-              recipientId: chat.recipientId,
-              senderName: chat.senderName,
-              recipientName: chat.recipientName,
-              content: sendText,
-              creationDate: new Date(),
+                senderId: getCurrentUserId(),
+                recipientId: chat.recipientId,
+                senderName: chat.senderName,
+                recipientName: chat.recipientName,
+                content: sendText,
+                creationDate: new Date(),
             };
             stompClient.send("/app/chat", {}, JSON.stringify(message));
       

@@ -16,3 +16,8 @@ export const chat = atom({
         recipientName: null
     }
 });
+
+export const isLoggedUser = atom({
+    key: "isLoggedUser",
+    default: localStorage.getItem("accessToken") ? true : false
+});
