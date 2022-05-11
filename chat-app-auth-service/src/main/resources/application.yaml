@@ -5,11 +5,15 @@ spring:
     password: 1234
     driverClassName: org.postgresql.Driver
     initializationMode: always
+  sql:
+    init:
+      mode: always
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
 server:
   port: 8081

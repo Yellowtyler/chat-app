@@ -5,11 +5,15 @@ spring:
     password: 1234
     driverClassName: org.postgresql.Driver
     initializationMode: always
+  sql:
+    init:
+      mode: always # always validates spring init sql script db schema, even in not embedded DBs
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    defer-datasource-initialization: true # allows hibernate ddl auto and spring init sql to work together
     hibernate:
-      ddl-auto: update
+      ddl-auto: create # creates tables in db based on java classes in package model
 
 logging:
   level:
