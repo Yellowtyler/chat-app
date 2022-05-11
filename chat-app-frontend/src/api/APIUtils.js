@@ -14,6 +14,12 @@ export const getCurrentUserId = () => {
     return tokenData.sub;
 };
 
+export const getCurrentUserName = () => {
+    let tokenData = jwtDecode(localStorage.getItem("accessToken"));
+    console.log(tokenData);
+    return tokenData.name;
+};
+
 export const handleError = (status) => {
     if (status === 401) {
         return 'Your session is expired! Please relogin';

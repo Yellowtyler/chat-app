@@ -25,7 +25,7 @@ export const isLoggedUser = atom({
 
 export const popupMessage = atom({
     key: "popupMessage",
-    default: 'saffsafaffasfsa'
+    default: ''
 });
 
 export const popupActive = atom({

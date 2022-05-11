@@ -8,7 +8,7 @@ import { useState } from 'react';
 const App = () => {
 
   const [isLogin, setIsLogin] = useRecoilState(isLoggedUser);
-  const [isActive, setActive] = useState(true);
+  const [isActive, setActive] = useState(false);
 
   return (
     <div className='container'>

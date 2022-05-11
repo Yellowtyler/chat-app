@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { getCurrentUserId, handleError } from "../api/APIUtils";
+import { getCurrentUserId, handleError, getCurrentUserName } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
 import Dialog from "./Dialog";
 import { chatMessages } from "../recoil/example/atom";
 import { useRecoilState } from "recoil";
 import { popupMessage } from '../recoil/example/atom';
+import { BiSend } from "react-icons/bi";
 
 var stompClient = null;
 
@@ -57,13 +58,13 @@ const Chat = ({ chat, setActivePopup }) => {
             const message = {
                 senderId: getCurrentUserId(),
                 recipientId: chat.recipientId,
-                senderName: chat.senderName,
+                senderName: getCurrentUserName(),
                 recipientName: chat.recipientName,
                 content: sendText,
                 creationDate: new Date(),
             };
             stompClient.send("/app/chat", {}, JSON.stringify(message));
-      
+            console.log(message);
             const newMessages = [...messages];
             newMessages.push(message);
             setMessages(newMessages);
@@ -76,15 +77,16 @@ const Chat = ({ chat, setActivePopup }) => {
         <div className="chat-container">
                 <Dialog chat={chat} setActivePopup={setActivePopup}/>
                 <div className="chat-input-container">
-                    <input className="text-input" type="text" placeholder="Enter text" value={sendText} onChange={e=>setSendText(e.target.value)} 
+                    <textarea className="chat-input" type="text"rows='3' cols='25' placeholder="Enter text..." value={sendText} onChange={e=>setSendText(e.target.value)} 
                         onKeyPress={(event) => {
                             if (event.key === "Enter") {
+                                console.log("e");
                                 sendMessage();
                                 setSendText('');
                             }
                         }}>
-                    </input>
-                    <Button onClick={e=>sendMessage()}>Send</Button>
+                    </textarea>
+                    <BiSend className="send-btn" size={30} onClick={e=>sendMessage()}></BiSend>
                 </div>
         </div>
     );
