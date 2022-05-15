@@ -1,7 +1,7 @@
 
 import '../styles/popup.css';
 import { useRecoilState } from 'recoil';
-import { isLoggedUser, popupActive, popupMessage, userId } from '../recoil/example/atom';
+import { chat, isLoggedUser, popupActive, popupMessage, userId } from '../recoil/example/atom';
 import { logout } from '../api/AuthAPI';
 
 const Popup = () => {
@@ -10,6 +10,7 @@ const Popup = () => {
     const [message, setMessage] = useRecoilState(popupMessage);
     const [, setIsLogin] = useRecoilState(isLoggedUser);
     const [, setUserId] = useRecoilState(userId);
+    const [, setChat] = useRecoilState(chat);
 
     const handleClick = (e) => {
         logout();
@@ -17,6 +18,14 @@ const Popup = () => {
         setMessage('');
         setActive(false);
         setUserId(null);
+        setChat({
+            chatId: null,
+            lastMessage: "hi",
+            lastMessageDate: "2022-05-07T21:29:54.619371",
+            lastMessageUser: null,
+            recipientId: "1",
+            recipientName: null
+        });
     };
 
     return (

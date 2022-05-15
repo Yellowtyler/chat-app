@@ -8,6 +8,10 @@ export const getChats = (id) => {
     return axios.get(MESSAGE_SERVICE_URL + '/chats/' + id, {headers: authHeader()});
 };
 
+export const getChat = (senderId, recipientId) => {
+    return axios.get(MESSAGE_SERVICE_URL + '/chats/' + senderId + '/'  + recipientId, {headers: authHeader()});
+};
+
 export const getAllMessages = (senderId, recipientId) => {
     return axios.get(MESSAGE_SERVICE_URL + '/messages/' + senderId + '/' + recipientId, {headers: authHeader()});
 };
