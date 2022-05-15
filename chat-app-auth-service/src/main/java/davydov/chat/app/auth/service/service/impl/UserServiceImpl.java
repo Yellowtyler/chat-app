@@ -5,6 +5,7 @@ import davydov.chat.app.auth.service.model.User;
 import davydov.chat.app.auth.service.payload.LoginRequest;
 import davydov.chat.app.auth.service.payload.LoginResponse;
 import davydov.chat.app.auth.service.payload.SignupRequest;
+import davydov.chat.app.auth.service.payload.UserDTO;
 import davydov.chat.app.auth.service.repository.RoleRepository;
 import davydov.chat.app.auth.service.repository.UserRepository;
 import davydov.chat.app.auth.service.service.TokenProvider;
@@ -16,6 +17,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -50,6 +54,13 @@ public class UserServiceImpl implements UserService {
         var token = new UsernamePasswordAuthenticationToken(user.getUsername(), loginRequest.getPassword());
         var authentication = authenticationManager.authenticate(token);
         return new LoginResponse(tokenProvider.generateToken(authentication, user.getId()));
+    }
+
+    @Override
+    public List<UserDTO> searchForUsers(String username) {
+        return userRepository.findByUsernameIsLike(username).stream()
+                .map(u -> new UserDTO(u.getId(), u.getUsername()))
+                .collect(Collectors.toUnmodifiableList());
     }
 
 }
