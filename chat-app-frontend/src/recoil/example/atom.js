@@ -31,7 +31,7 @@ export const popupMessage = atom({
 
 export const popupActive = atom({
     key: "popupActive",
-    default: true
+    default: false
 });
 
 export const userId = atom({

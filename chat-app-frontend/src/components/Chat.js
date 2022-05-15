@@ -3,17 +3,19 @@ import { handleError, getCurrentUserName } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
 import Dialog from "./Dialog";
 import { useRecoilState } from "recoil";
-import { popupMessage, userId, chatMessages } from '../recoil/example/atom';
+import { popupMessage, userId, chatMessages, popupActive } from '../recoil/example/atom';
 import { BiSend } from "react-icons/bi";
 
 var stompClient = null;
 
-const Chat = ({ chat, setActivePopup }) => {
+const Chat = ({ chat }) => {
 
     const [messages, setMessages] = useRecoilState(chatMessages);
-    const [sendText, setSendText] = useState('');
     const [, setPopupMessage] = useRecoilState(popupMessage);
+    const [, setActivePopup] = useRecoilState(popupActive);
     const [userID, ] = useRecoilState(userId);
+
+    const [sendText, setSendText] = useState('');
     const senderName = useMemo(() => getCurrentUserName(), [getCurrentUserName]);
 
     useEffect(() => {
@@ -75,7 +77,7 @@ const Chat = ({ chat, setActivePopup }) => {
 
     return (
         <div className="chat-container">
-                <Dialog chat={chat} setActivePopup={setActivePopup}/>
+                <Dialog chat={chat}/>
                 <div className="chat-input-container">
                     <textarea className="chat-input" type="text" rows='3' cols='25' placeholder="Enter text..." value={sendText} onChange={e=>setSendText(e.target.value)} 
                         onKeyPress={(event) => {

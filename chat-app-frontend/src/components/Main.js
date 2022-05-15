@@ -8,13 +8,14 @@ import { logout } from '../api/AuthAPI';
 import { handleError } from '../api/APIUtils';
 import { getChats } from '../api/MessageAPI';
 import { useRecoilState } from 'recoil';
-import { chat, popupMessage } from "../recoil/example/atom";
+import { chat, popupActive, popupMessage } from "../recoil/example/atom";
 import { isLoggedUser, userId } from '../recoil/example/atom';
 
-const Main = ({setActivePopup}) => {
+const Main = () => {
 
     const [, setIsLogin] = useRecoilState(isLoggedUser);
     const [openedChat, ] = useRecoilState(chat);
+    const [, setActivePopup] = useRecoilState(popupActive);
     const [, setPopupMessage] = useRecoilState(popupMessage);
     const [userID, ] = useRecoilState(userId);
 
@@ -43,7 +44,7 @@ const Main = ({setActivePopup}) => {
                     { chatList.map(chatBox => (<ChatBox chatBox={chatBox}/>)) }
                     </ul>
                 </div> 
-                { openedChat.chatId !== null && <Chat chat={openedChat} setActivePopup={setActivePopup}/> }
+                { openedChat.chatId !== null && <Chat chat={openedChat}/> }
             </div>
         </div>
     );

@@ -4,14 +4,16 @@ import './../styles/auth.css';
 import { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
 import { useRecoilState } from 'recoil';
-import { isLoggedUser, userId } from '../recoil/example/atom';
+import { isLoggedUser, userId, popupMessage, popupActive } from '../recoil/example/atom';
 import { Alert } from 'react-bootstrap';
 import { getCurrentUserId } from '../api/APIUtils';
 
-const Auth = ({setActivePopup}) => {
+const Auth = () => {
 
     const [,setIsLogin] = useRecoilState(isLoggedUser);
     const [, setUserId] = useRecoilState(userId);
+    const [, setActivePopup] = useRecoilState(popupActive);
+    const [, setPopupMessage] = useRecoilState(popupMessage);
 
     const [isLoginPage, setIsLoginPage] = useState(true);
 
@@ -39,6 +41,7 @@ const Auth = ({setActivePopup}) => {
             setUserId(getCurrentUserId());
             setIsLogin(true);
         }, error => {
+            setPopupMessage("User " + username + " wasn't found!");
             setActivePopup(true);
         });
     }

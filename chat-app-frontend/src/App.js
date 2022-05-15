@@ -1,20 +1,20 @@
 import Auth from './components/Auth';
 import Main from './components/Main';
 import { useRecoilState } from 'recoil';
-import { isLoggedUser } from './recoil/example/atom';
+import { isLoggedUser, popupActive } from './recoil/example/atom';
 import Popup from './components/Popup';
 import { useState } from 'react';
 
 const App = () => {
 
   const [isLogin, ] = useRecoilState(isLoggedUser);
-  const [isActive, setActive] = useState(false);
+  const [isActive, ] = useRecoilState(popupActive);
 
   return (
     <div className='container'>
-      {!isLogin && <Auth setActivePopup={setActive}/>}
-      {isLogin && <Main setActivePopup={setActive}/>}
-      {isActive && <Popup setActive={setActive}/>}
+      {!isLogin && <Auth/>}
+      {isLogin && <Main/>}
+      {isActive && <Popup/>}
     </div>
   );
 };
