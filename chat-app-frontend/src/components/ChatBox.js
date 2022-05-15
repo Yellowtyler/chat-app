@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRecoilState } from 'recoil';
 import { chat } from '../recoil/example/atom';
+import { calculateMessageDate } from "../utils/DateUtils";
 
 const ChatBox = ({ chatBox }) => {
 
@@ -16,7 +17,7 @@ const ChatBox = ({ chatBox }) => {
             onClick={e=>setOpenedChat(chatBox)}>
             <p className="title">
               <span className="username">{chatBox.recipientName}</span>
-              <span className="time">{chatBox.lastMessageDate}</span>  
+              <span className="time">{calculateMessageDate(chatBox.lastMessageDate)}</span>  
             </p>
             <p className="last-message-box">
                 <span className="last-message-user">{chatBox.lastMessageUser}:</span>

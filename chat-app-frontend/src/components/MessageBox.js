@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
 import { userId } from "../recoil/example/atom";
+import { calculateMessageDate } from "../utils/DateUtils";
 
 const MessageBox = ({ message }) => {
 
@@ -14,7 +15,7 @@ const MessageBox = ({ message }) => {
                     <div>
                         <span className="message-content">{message.content}</span>
                     </div>
-                    <span className="message-date">{new Date(message.creationDate).getHours() + ":" + new Date(message.creationDate).getMinutes()}</span>
+                    <span className="message-date">{calculateMessageDate(message.creationDate)}</span>
             </div>
         </div>
     );

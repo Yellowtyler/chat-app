@@ -139,7 +139,15 @@ const Auth = () => {
         <div className="auth-page">
             {isLoginPage && <div className="login-container">
                 <input className="login" type="text" placeholder="Enter login" onChange={e=>setUsername(e.target.value)}></input>
-                <input className="password" type="password" placeholder="Enter password" onChange={e=>setPassword(e.target.value)}></input>
+                <input className="password" type="password" placeholder="Enter password" 
+                    onChange={e=>setPassword(e.target.value)}
+                    onKeyPress={e => {
+                        if (e.key === "Enter") {
+                            handleLogin(e);
+                        }
+                    }}>
+
+                </input>
                 <div className="forgot-password-container">
                     <a className="forgot-password" href="localhost">Forgot password?</a>
                 </div>

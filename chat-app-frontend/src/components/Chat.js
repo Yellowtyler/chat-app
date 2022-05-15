@@ -2,7 +2,7 @@ import './../styles/chat.css';
 import { useEffect, useState, useMemo } from "react";
 import { handleError, getCurrentUserName } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
-import Dialog from "./Dialog";
+import Dialogue from "./Dialogue";
 import { useRecoilState } from "recoil";
 import { popupMessage, userId, chatMessages, popupActive } from '../recoil/example/atom';
 import { BiSend } from "react-icons/bi";
@@ -22,6 +22,7 @@ const Chat = ({ chat }) => {
     useEffect(() => {
         getAllMessages(userID, chat.recipientId).then(response => {
             setMessages(response.data);
+            console.log(response.data);
         }, error => {
             setPopupMessage(handleError(error.response.status));
             setActivePopup(true);
@@ -64,7 +65,7 @@ const Chat = ({ chat }) => {
                 senderName: senderName,
                 recipientName: chat.recipientName,
                 content: sendText,
-                creationDate: new Date(),
+                creationDate: new Date().toISOString(),
             };
             stompClient.send("/app/chat", {}, JSON.stringify(message));
             console.log(message);
@@ -78,7 +79,7 @@ const Chat = ({ chat }) => {
 
     return (
         <div className="chat-container">
-                <Dialog chat={chat}/>
+                <Dialogue chat={chat}/>
                 <div className="chat-input-container">
                     <textarea className="chat-input" type="text" rows='3' cols='25' placeholder="Enter text..." value={sendText} onChange={e=>setSendText(e.target.value)} 
                         onKeyPress={(event) => {

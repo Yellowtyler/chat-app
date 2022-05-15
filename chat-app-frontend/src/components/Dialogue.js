@@ -5,13 +5,13 @@ import { handleError } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
 import { useEffect } from "react";
 
-const Dialog = ({ chat }) => {
+const Dialogue = ({ chat }) => {
 
     const [messages, setMessages] = useRecoilState(chatMessages);
     const [, setPopupMessage] = useRecoilState(popupMessage);
     const [, setActivePopup] = useRecoilState(popupActive);
     const [userID, ] = useRecoilState(userId);
-    
+
     useEffect(()=> {
         getAllMessages(userID, chat.recipientId).then(response => {
             setMessages(response.data);
@@ -28,4 +28,4 @@ const Dialog = ({ chat }) => {
     );
 };
 
-export default Dialog;
+export default Dialogue;

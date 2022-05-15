@@ -17,7 +17,7 @@ INTO
   messages
   (id, sender_id, recipient_id, content, creation_date, message_status, sender_name, recipient_name)
 VALUES
-  (1, '1', '2', 'Hi!', NOW(), 'DELIVERED', 'Alice', 'Bob');
+  (1, '1', '2', 'Hi!', '2022-05-14 16:39:25.44', 'DELIVERED', 'Alice', 'Bob');
 
 
 INSERT

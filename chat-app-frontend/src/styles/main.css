@@ -74,7 +74,7 @@ background: rgba(128, 128, 128, 0.6);
 
 .time {
     font-weight: 100;
-
+    margin-right: 0.5rem;
 }
 
 .last-message-box {
