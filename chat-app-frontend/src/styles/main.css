@@ -1,3 +1,21 @@
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+::-webkit-scrollbar-track {
+box-shadow: inset 0 0 5px grey; 
+border-radius: 10px;
+}
+   
+::-webkit-scrollbar-thumb {
+background: rgba(128, 128, 128, 0.45); 
+border-radius: 10px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+background: rgba(128, 128, 128, 0.6); 
+}
+
 .navbar {
     height: 40px;
     background-color: white;
@@ -67,113 +85,4 @@
 .last-message {
     margin-left: 0.3rem;
     font-weight: 100;
-}
-
-.chat-container {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-}
-
-.dialog-container {
-    width: 100%;
-    height: 90vh;
-    overflow-y: scroll;
-}
-
-::-webkit-scrollbar {
-    width: 7px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgba(128, 128, 128, 0.45); 
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(128, 128, 128, 0.6); 
-  }
-
-.chat-input-container {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    bottom: 0;
-    margin-top: 0.5rem;
-}
-
-.chat-input {
-    background-color: white;
-    padding: 0.5rem;
-    border-radius: 8px;
-    border: none;
-    resize: none;
-}
-
-.chat-input:focus {
-    outline: none;
-}
-
-.send-btn {
-    visibility: visible;
-    background-color: white;
-    border-radius: 50%;
-    margin-left: 0.5rem;
-}
-
-.send-btn:hover {
-    background-color: #3390ec;
-    cursor: pointer;
-}
-
-.message {
-    border-radius: 8px;
-    height: auto;
-    max-width: 200px;
-    width: 200px;
-    padding: 0.2rem;
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    background-color: white;
-}
-
-.message.sent {
-    margin-left: 30rem;
-}
-
-.message.recieved {
-    margin-right: 30rem;
-}
-
-.message-sender-name {
-    font-weight: 600;
-}
-
-.message-content {
-    font-weight: 300;
-    font-size: 18px;
-    margin-left: auto;
-    max-width: 200px;
-    width: fit-content;
-    word-wrap: break-word;
-    height: auto;
-}
-
-.message-date {
-    font-size: 10px;
-    font-weight: bold;
-    margin-left: auto;
 }

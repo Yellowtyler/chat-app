@@ -1,9 +1,8 @@
 import Auth from './components/Auth';
 import Main from './components/Main';
+import Popup from './components/Popup';
 import { useRecoilState } from 'recoil';
 import { isLoggedUser, popupActive } from './recoil/example/atom';
-import Popup from './components/Popup';
-import { useState } from 'react';
 
 const App = () => {
 

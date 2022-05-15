@@ -1,7 +1,7 @@
+import './../styles/main.css';
 import ChatBox from './ChatBox';
 import Chat from './Chat';
 import Search from './Search';
-import './../styles/main.css';
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { logout } from '../api/AuthAPI';

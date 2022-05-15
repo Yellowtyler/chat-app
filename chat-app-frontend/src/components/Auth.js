@@ -1,6 +1,6 @@
+import './../styles/auth.css';
 import { loginUser, signupUser } from '../api/AuthAPI';
 import { validateUsername, validateMail, validatePassword } from '../utils/ValidationUtils';
-import './../styles/auth.css';
 import { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
 import { useRecoilState } from 'recoil';

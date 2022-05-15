@@ -1,3 +1,4 @@
+import './../styles/chat.css';
 import { useEffect, useState, useMemo } from "react";
 import { handleError, getCurrentUserName } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
