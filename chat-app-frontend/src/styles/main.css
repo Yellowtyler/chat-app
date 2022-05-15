@@ -9,7 +9,7 @@
 
 .messanger-container {
     display: flex;
-    height: 100vh;
+    height: 90vh;
 }
 
 .chat-and-search-container {
@@ -44,9 +44,9 @@
 }
 
 .title {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .username {
@@ -56,7 +56,7 @@
 
 .time {
     font-weight: 100;
-    margin-right: 0.5rem;
+
 }
 
 .last-message-box {
@@ -79,8 +79,31 @@
 }
 
 .dialog-container {
+    width: 100%;
+    height: 90vh;
     overflow-y: scroll;
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.45); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.6); 
+  }
 
 .chat-input-container {
     align-items: center;
@@ -116,10 +139,10 @@
 }
 
 .message {
-    width: 15rem;
     border-radius: 8px;
     height: auto;
-    width: auto;
+    max-width: 200px;
+    width: 200px;
     padding: 0.2rem;
     display: flex;
     flex-direction: column;
@@ -128,11 +151,11 @@
 }
 
 .message.sent {
-    margin-left: 15rem;
+    margin-left: 30rem;
 }
 
 .message.recieved {
-    margin-right: 15rem;
+    margin-right: 30rem;
 }
 
 .message-sender-name {
@@ -143,6 +166,10 @@
     font-weight: 300;
     font-size: 18px;
     margin-left: auto;
+    max-width: 200px;
+    width: fit-content;
+    word-wrap: break-word;
+    height: auto;
 }
 
 .message-date {

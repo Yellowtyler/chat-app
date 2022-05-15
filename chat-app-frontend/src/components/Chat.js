@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { getCurrentUserId, handleError, getCurrentUserName } from "../api/APIUtils";
+import { useEffect, useState, useMemo } from "react";
+import { handleError, getCurrentUserName } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
 import Dialog from "./Dialog";
-import { chatMessages } from "../recoil/example/atom";
 import { useRecoilState } from "recoil";
-import { popupMessage } from '../recoil/example/atom';
+import { popupMessage, userId, chatMessages } from '../recoil/example/atom';
 import { BiSend } from "react-icons/bi";
 
 var stompClient = null;
@@ -14,10 +12,12 @@ const Chat = ({ chat, setActivePopup }) => {
 
     const [messages, setMessages] = useRecoilState(chatMessages);
     const [sendText, setSendText] = useState('');
-    const [popupMessage1, setPopupMessage] = useRecoilState(popupMessage);
+    const [, setPopupMessage] = useRecoilState(popupMessage);
+    const [userID, ] = useRecoilState(userId);
+    const senderName = useMemo(() => getCurrentUserName(), [getCurrentUserName]);
 
     useEffect(() => {
-        getAllMessages(getCurrentUserId(), chat.recipientId).then(response => {
+        getAllMessages(userID, chat.recipientId).then(response => {
             setMessages(response.data);
         }, error => {
             setPopupMessage(handleError(error.response.status));
@@ -38,7 +38,7 @@ const Chat = ({ chat, setActivePopup }) => {
     const onConnected = () => {
         console.log("connected");
         stompClient.subscribe(
-            "/user/" + getCurrentUserId() + "/queue/messages",
+            "/user/" + userID + "/queue/messages",
             onMessageReceived
         );
     };
@@ -56,9 +56,9 @@ const Chat = ({ chat, setActivePopup }) => {
     const sendMessage = () => {
         if (sendText.trim() !== "") {
             const message = {
-                senderId: getCurrentUserId(),
+                senderId: userID,
                 recipientId: chat.recipientId,
-                senderName: getCurrentUserName(),
+                senderName: senderName,
                 recipientName: chat.recipientName,
                 content: sendText,
                 creationDate: new Date(),
@@ -77,10 +77,9 @@ const Chat = ({ chat, setActivePopup }) => {
         <div className="chat-container">
                 <Dialog chat={chat} setActivePopup={setActivePopup}/>
                 <div className="chat-input-container">
-                    <textarea className="chat-input" type="text"rows='3' cols='25' placeholder="Enter text..." value={sendText} onChange={e=>setSendText(e.target.value)} 
+                    <textarea className="chat-input" type="text" rows='3' cols='25' placeholder="Enter text..." value={sendText} onChange={e=>setSendText(e.target.value)} 
                         onKeyPress={(event) => {
                             if (event.key === "Enter") {
-                                console.log("e");
                                 sendMessage();
                                 setSendText('');
                             }

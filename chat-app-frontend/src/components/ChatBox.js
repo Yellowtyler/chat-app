@@ -5,7 +5,7 @@ import { chat } from '../recoil/example/atom';
 const ChatBox = ({ chatBox }) => {
 
     const [backgroundColor, setBackgroundColor] = useState('white');    
-    const [openedChat, setOpenedChat] = useRecoilState(chat);
+    const [, setOpenedChat] = useRecoilState(chat);
 
     return (
         <li className="chat-box-container" 

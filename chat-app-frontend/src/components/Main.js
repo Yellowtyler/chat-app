@@ -5,19 +5,23 @@ import './../styles/main.css';
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { logout } from '../api/AuthAPI';
-import { handleError, getCurrentUserId } from '../api/APIUtils';
+import { handleError } from '../api/APIUtils';
 import { getChats } from '../api/MessageAPI';
 import { useRecoilState } from 'recoil';
 import { chat, popupMessage } from "../recoil/example/atom";
+import { isLoggedUser, userId } from '../recoil/example/atom';
 
-const Main = ({setIsLogin, setActivePopup}) => {
+const Main = ({setActivePopup}) => {
+
+    const [, setIsLogin] = useRecoilState(isLoggedUser);
+    const [openedChat, ] = useRecoilState(chat);
+    const [, setPopupMessage] = useRecoilState(popupMessage);
+    const [userID, ] = useRecoilState(userId);
 
     const [chatList, setChatList] = useState([]);
-    const [openedChat, setOpenedChat] = useRecoilState(chat);
-    const [popupMessage1, setPopupMessage] = useRecoilState(popupMessage);
 
     useEffect(() => {
-        getChats(getCurrentUserId()).then(response=>{
+        getChats(userID).then(response=>{
             setChatList(response.data);
             console.log(response);
         }, error => {
@@ -36,10 +40,10 @@ const Main = ({setIsLogin, setActivePopup}) => {
                 <div className="chat-and-search-container">
                     <Search/>
                     <ul className="chat-list-container">
-                    {chatList.map(chatBox => (<ChatBox chatBox={chatBox}/>))}
+                    { chatList.map(chatBox => (<ChatBox chatBox={chatBox}/>)) }
                     </ul>
                 </div> 
-                { openedChat.chatId !== null && <Chat chat={openedChat} setActivePopup={setActivePopup}/>}
+                { openedChat.chatId !== null && <Chat chat={openedChat} setActivePopup={setActivePopup}/> }
             </div>
         </div>
     );

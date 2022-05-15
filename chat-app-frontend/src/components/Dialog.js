@@ -1,17 +1,18 @@
 import MessageBox from "./MessageBox";
 import { useRecoilState } from "recoil";
-import { chatMessages, popupMessage } from "../recoil/example/atom";
-import { getCurrentUserId, handleError } from "../api/APIUtils";
+import { chatMessages, popupMessage, userId } from "../recoil/example/atom";
+import { handleError } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
 import { useEffect } from "react";
 
 const Dialog = ({ chat, setActivePopup }) => {
 
     const [messages, setMessages] = useRecoilState(chatMessages);
-    const [popupMessage1, setPopupMessage] = useRecoilState(popupMessage);
+    const [, setPopupMessage] = useRecoilState(popupMessage);
+    const [userID, ] = useRecoilState(userId);
 
     useEffect(()=> {
-        getAllMessages(getCurrentUserId(), chat.recipientId).then(response => {
+        getAllMessages(userID, chat.recipientId).then(response => {
             setMessages(response.data);
         }, error => {
             setPopupMessage(handleError(error.response.status));

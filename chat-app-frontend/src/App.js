@@ -7,13 +7,13 @@ import { useState } from 'react';
 
 const App = () => {
 
-  const [isLogin, setIsLogin] = useRecoilState(isLoggedUser);
+  const [isLogin, ] = useRecoilState(isLoggedUser);
   const [isActive, setActive] = useState(false);
 
   return (
     <div className='container'>
-      {!isLogin && <Auth setIsLogin={setIsLogin} setActivePopup={setActive}/>}
-      {isLogin && <Main setIsLogin={setIsLogin}  setActivePopup={setActive}/>}
+      {!isLogin && <Auth setActivePopup={setActive}/>}
+      {isLogin && <Main setActivePopup={setActive}/>}
       {isActive && <Popup setActive={setActive}/>}
     </div>
   );

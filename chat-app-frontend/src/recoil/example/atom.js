@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { getCurrentUserId } from "../../api/APIUtils";
 
 export const chatMessages = atom({
     key: "messages",
@@ -31,4 +32,9 @@ export const popupMessage = atom({
 export const popupActive = atom({
     key: "popupActive",
     default: true
+});
+
+export const userId = atom({
+    key: "userId",
+    default: getCurrentUserId()
 });

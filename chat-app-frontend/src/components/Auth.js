@@ -3,9 +3,15 @@ import { validateUsername, validateMail, validatePassword } from '../utils/Valid
 import './../styles/auth.css';
 import { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
+import { useRecoilState } from 'recoil';
+import { isLoggedUser, userId } from '../recoil/example/atom';
 import { Alert } from 'react-bootstrap';
+import { getCurrentUserId } from '../api/APIUtils';
 
-const Auth = ({setIsLogin}) => {
+const Auth = ({setActivePopup}) => {
+
+    const [,setIsLogin] = useRecoilState(isLoggedUser);
+    const [, setUserId] = useRecoilState(userId);
 
     const [isLoginPage, setIsLoginPage] = useState(true);
 
@@ -16,6 +22,7 @@ const Auth = ({setIsLogin}) => {
 
     const [errorMsg, setErrorMsg] = useState('');
     
+    // TODO: revise this
     const [usernameFieldColor, setUsernameFieldColor] = useState('black');
     const [passwordFieldColor, setPasswordFieldColor] = useState('black');
     const [repeatPasswordFieldColor, setRepeatPasswordFieldColor] = useState('black');
@@ -28,8 +35,11 @@ const Auth = ({setIsLogin}) => {
             username: username,
             password: password
         };
-        loginUser(login).then(()=>setIsLogin(true), error => {
-            console.log(error);
+        loginUser(login).then(()=>{
+            setUserId(getCurrentUserId());
+            setIsLogin(true);
+        }, error => {
+            setActivePopup(true);
         });
     }
 

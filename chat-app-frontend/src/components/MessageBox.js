@@ -1,10 +1,13 @@
-import { getCurrentUserId } from "../api/APIUtils";
+import { useRecoilState } from "recoil";
+import { userId } from "../recoil/example/atom";
 
 const MessageBox = ({ message }) => {
 
+    const [userID, ] = useRecoilState(userId);
+
     return (
         <div>
-            <div className={getCurrentUserId() === message.senderId ? 'message sent' : 'message recieved'}>
+            <div className={userID === message.senderId ? 'message sent' : 'message recieved'}>
                     <div>
                         <span className="message-sender-name">{message.senderName}</span>
                     </div>
