@@ -18,7 +18,7 @@ import java.util.Set;
 public class ChatRoom {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "chat_room_id")

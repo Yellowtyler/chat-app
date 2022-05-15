@@ -50,6 +50,15 @@ public class ChatRoomServiceImpl implements ChatRoomService {
         return repository.findBySenderId(id).stream().map(this::mapToDto).sorted(Comparator.comparing(ChatDTO::getLastMessageDate).reversed()).collect(Collectors.toList());
     }
 
+    @Override
+    public ChatDTO getOrCreateChat(String senderId, String recipientId) {
+        var chat = getOrCreateChatRooms(senderId, recipientId).get(0);
+        return ChatDTO.builder()
+                .chatId(chat.getChatRoomId())
+                .recipientId(chat.getRecipientId())
+                .build();
+    }
+
     private ChatDTO mapToDto(ChatRoom chat) {
         if (chat.getMessages().size()-1 == -1) {
             return null;

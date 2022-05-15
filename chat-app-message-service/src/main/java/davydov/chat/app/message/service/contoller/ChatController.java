@@ -67,4 +67,9 @@ public class ChatController {
     public ResponseEntity<List<ChatDTO>> getChats(@PathVariable String id) {
         return ResponseEntity.ok(chatRoomService.getChats(id));
     }
+
+    @GetMapping("/chats/{senderId}/{recipientId}")
+    public ResponseEntity<ChatDTO> getOrCreateChat(@PathVariable String senderId, @PathVariable String recipientId) {
+        return ResponseEntity.ok(chatRoomService.getOrCreateChat(senderId, recipientId));
+    }
 }
