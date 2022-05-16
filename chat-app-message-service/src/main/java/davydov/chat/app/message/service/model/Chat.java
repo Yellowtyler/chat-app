@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,14 +16,14 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "chats")
-public class ChatRoom {
+public class Chat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
-    @Column(name = "chat_room_id")
-    private String chatRoomId;
+    @Column(name = "chat_id")
+    private String chatId;
 
     @Column(name = "sender_id")
     private String senderId;
@@ -30,12 +31,17 @@ public class ChatRoom {
     @Column(name = "recipient_id")
     private String recipientId;
 
-    // TODO: figure out about cascade. There might be issue with read/write from db
+    @Column(name = "sender_name")
+    private String senderName;
+
+    @Column(name = "recipient_name")
+    private String recipientName;
+
     @JsonIgnore
-    @ManyToMany(mappedBy = "chatRooms")
+    @ManyToMany(mappedBy = "chats")
     private Set<Message> messages;
 
-    public ChatRoom() {
+    public Chat() {
     }
 }
 

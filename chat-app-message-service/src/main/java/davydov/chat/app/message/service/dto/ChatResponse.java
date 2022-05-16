@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
-public class ChatDTO {
+public class ChatResponse {
     private String chatId;
     private String recipientName;
     private String recipientId;

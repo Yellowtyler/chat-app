@@ -16,6 +16,7 @@ import org.hibernate.annotations.TypeDef;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -30,8 +31,8 @@ import java.util.Set;
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "sender_id")
     private String senderId;
@@ -52,15 +53,9 @@ public class Message {
     @Column(name = "message_status")
     private MessageStatus messageStatus;
 
-    @Column(name = "sender_name")
-    private String senderName;
-
-    @Column(name = "recipient_name")
-    private String recipientName;
-
     @JsonIgnore
     @ManyToMany
-    private Set<ChatRoom> chatRooms;
+    private Set<Chat> chats;
 
     public Message() {}
 }

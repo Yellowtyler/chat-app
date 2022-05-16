@@ -1,9 +1,10 @@
 package davydov.chat.app.message.service.contoller;
 
-import davydov.chat.app.message.service.dto.ChatDTO;
+import davydov.chat.app.message.service.dto.ChatResponse;
+import davydov.chat.app.message.service.dto.CreateChatRequest;
 import davydov.chat.app.message.service.model.Message;
 import davydov.chat.app.message.service.model.MessageNotification;
-import davydov.chat.app.message.service.service.ChatRoomService;
+import davydov.chat.app.message.service.service.ChatService;
 import davydov.chat.app.message.service.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +12,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,14 +23,14 @@ import java.util.List;
 public class ChatController {
 
     private final SimpMessagingTemplate messagingTemplate;
-    private final ChatRoomService chatRoomService;
+    private final ChatService chatService;
     private final MessageService messageService;
 
     @MessageMapping("/chat")
     public void processMessage(@Payload Message message) {
-        var chats = chatRoomService.getOrCreateChatRooms(message.getSenderId(), message.getRecipientId());
+        var chats = chatService.getChats(message.getSenderId(), message.getRecipientId());
 
-        message.setChatRooms(new HashSet<>(chats));
+        message.setChats(new HashSet<>(chats));
 
         messageService.save(message);
 
@@ -41,7 +40,7 @@ public class ChatController {
                 MessageNotification.builder()
                         .id(message.getId())
                         .senderId(message.getSenderId())
-                        .senderName(message.getSenderName())
+                       // .senderName(message.getSenderName())
                         .build()
         );
     }
@@ -64,12 +63,12 @@ public class ChatController {
     }
 
     @GetMapping("/chats/{id}")
-    public ResponseEntity<List<ChatDTO>> getChats(@PathVariable String id) {
-        return ResponseEntity.ok(chatRoomService.getChats(id));
+    public ResponseEntity<List<ChatResponse>> getAllChats(@PathVariable String id) {
+        return ResponseEntity.ok(chatService.getAllChats(id));
     }
 
-    @GetMapping("/chats/{senderId}/{recipientId}")
-    public ResponseEntity<ChatDTO> getOrCreateChat(@PathVariable String senderId, @PathVariable String recipientId) {
-        return ResponseEntity.ok(chatRoomService.getOrCreateChat(senderId, recipientId));
+    @PostMapping("/chats")
+    public ResponseEntity<ChatResponse> createChat(@RequestBody CreateChatRequest request) {
+        return ResponseEntity.ok(chatService.createChat(request));
     }
 }
