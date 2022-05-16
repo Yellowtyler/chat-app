@@ -1,8 +1,9 @@
 import { useRecoilState } from "recoil";
+import { getCurrentUserName } from "../api/APIUtils";
 import { userId } from "../recoil/example/atom";
 import { calculateMessageDate } from "../utils/DateUtils";
 
-const MessageBox = ({ message }) => {
+const MessageBox = ({ message, chat }) => {
 
     const [userID, ] = useRecoilState(userId);
 
@@ -10,7 +11,7 @@ const MessageBox = ({ message }) => {
         <div>
             <div className={userID === message.senderId ? 'message sent' : 'message recieved'}>
                     <div>
-                        <span className="message-sender-name">{message.senderName}</span>
+                        <span className="message-sender-name">{userID === message.senderId ? getCurrentUserName() : chat.recipientName}</span>
                     </div>
                     <div>
                         <span className="message-content">{message.content}</span>

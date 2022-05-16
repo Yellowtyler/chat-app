@@ -2,6 +2,7 @@
     margin-left: auto;
     margin-right: auto;
     min-height: 100vh;
+    min-width: 100vw;
     background-image: url("./../images/background.png");
     background-size: cover;
   }

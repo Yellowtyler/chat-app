@@ -63,7 +63,8 @@
 }
 
 .message.recieved {
-    margin-right: 30rem;
+    margin-left: 15rem;
+    margin-top: 2rem;
 }
 
 .message-sender-name {

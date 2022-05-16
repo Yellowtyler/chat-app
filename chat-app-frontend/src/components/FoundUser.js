@@ -1,5 +1,6 @@
 import { useRecoilState } from "recoil";
-import { getChat } from "../api/MessageAPI";
+import { getCurrentUserName } from "../api/APIUtils";
+import { getOrCreateChat } from "../api/MessageAPI";
 import { chat, userId } from "../recoil/example/atom";
 
 const FoundUser = ({ foundUser }) => {
@@ -9,7 +10,14 @@ const FoundUser = ({ foundUser }) => {
 
     const handleClick = () => {
         console.log(foundUser);
-        getChat(userID, foundUser.id).then(response => {
+        const getOrCreateChatRequest = {
+            senderId: userID,
+            senderName: getCurrentUserName(), 
+            recipientId: foundUser.id, 
+            recipientName: foundUser.username
+        };
+        getOrCreateChat(getOrCreateChatRequest).then(response => {
+            console.log(response.data);
             setOpenedChat(response.data);
         }, error => {
             console.log(error);

@@ -23,7 +23,7 @@ const Dialogue = ({ chat }) => {
 
     return (
         <div className="dialog-container">
-            {messages.length > 0 && messages.map(m=><MessageBox message={m}/>)}
+            {messages.length > 0 && messages.map(m=><MessageBox message={m} chat={chat}/>)}
             {messages.length === 0 && <h5>Start conversation!</h5>}
 
         </div>

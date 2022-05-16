@@ -17,7 +17,6 @@ const Chat = ({ chat }) => {
     const [userID, ] = useRecoilState(userId);
 
     const [sendText, setSendText] = useState('');
-    const senderName = useMemo(() => getCurrentUserName(), [getCurrentUserName]);
 
     useEffect(() => {
         getAllMessages(userID, chat.recipientId).then(response => {
@@ -62,11 +61,10 @@ const Chat = ({ chat }) => {
             const message = {
                 senderId: userID,
                 recipientId: chat.recipientId,
-                senderName: senderName,
-                recipientName: chat.recipientName,
                 content: sendText,
                 creationDate: new Date().toISOString(),
             };
+            console.log(chat);
             stompClient.send("/app/chat", {}, JSON.stringify(message));
             console.log(message);
             const newMessages = [...messages];
