@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 1234
+    driverClassName: org.postgresql.Driver
+    initializationMode: always
+  sql:
+    init:
+      mode: always
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework: DEBUG
+
+jwt:
+  uri: /auth/**
+  header: Authorization
+  prefix: Bearer
+  expiration: 300
+  secret: JwtSuperBigFuckYeahWhatElseToWriteOMGSecretKey
