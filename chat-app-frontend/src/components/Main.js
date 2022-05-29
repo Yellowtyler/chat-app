@@ -1,38 +1,27 @@
 import './../styles/main.css';
-import ChatBox from './ChatBox';
 import Chat from './Chat';
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { logout } from '../api/AuthAPI';
-import { handleError } from '../api/APIUtils';
-import { getChats } from '../api/MessageAPI';
 import { useRecoilState } from 'recoil';
-import { chat, popupActive, popupMessage } from "../recoil/example/atom";
+import { chat, chatMessages } from "../recoil/example/atom";
 import { isLoggedUser, userId } from '../recoil/example/atom';
 import SearchResult from './SearchResult';
-import {BiArrowBack} from "react-icons/bi";
+import { BiArrowBack } from "react-icons/bi";
+import ChatBoxList from './ChatBoxList';
+
+var stompClient = null;
 
 const Main = () => {
-
     const [, setIsLogin] = useRecoilState(isLoggedUser);
     const [openedChat, setOpenedChat] = useRecoilState(chat);
-    const [, setActivePopup] = useRecoilState(popupActive);
-    const [, setPopupMessage] = useRecoilState(popupMessage);
     const [userID, setUserId] = useRecoilState(userId);
-
-    const [chatList, setChatList] = useState([]);
-
+    const [messages, setMessages ] = useRecoilState(chatMessages);
     const [isSearch, setIsSearch] = useState(false);
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
-        getChats(userID).then(response=>{
-            setChatList(response.data);
-            console.log(response);
-        }, error => {
-            setActivePopup(true);
-            setPopupMessage(handleError(error.response.status));
-        });
+        connect();
     }, []);
 
     const handleLogout = () => {
@@ -48,6 +37,41 @@ const Main = () => {
             recipientName: null
         });
     };
+
+    const connect = () => {
+        const Stomp = require("stompjs");
+        var SockJS = require("sockjs-client");
+        SockJS = new SockJS("http://localhost:8080/ws");
+        stompClient = Stomp.over(SockJS);
+        stompClient.connect({}, onConnected, onError);
+    };
+
+
+    const onConnected = () => {
+        console.log("connected");
+        stompClient.subscribe(
+            "/user/" + userID + "/queue/messages",
+            onMessageReceived
+        );
+    };
+
+    const onError = (err) => {
+        console.log(err);
+    };
+
+    const onMessageReceived = (msg) => {
+        const newMessages = [...messages];
+        newMessages.push(msg);
+        console.log(newMessages);
+        setMessages(newMessages);
+    };
+
+    const sendMessage = (message) => {
+        stompClient.send("/app/chat", {}, JSON.stringify(message));
+        const newMessages = [...messages];
+        newMessages.push(message);
+        setMessages(newMessages);
+    }
 
     return (
         <div className="main-page">
@@ -71,12 +95,9 @@ const Main = () => {
                         </input>
                     </div>
                     {isSearch && <SearchResult searchValue={searchValue} isSearch={isSearch}/>}
-                    {!isSearch && <ul className="chat-list-container">
-                        { chatList.map(chatBox => (<ChatBox chatBox={chatBox}/>)) }
-                    </ul>
-                    }
+                    {!isSearch && <ChatBoxList/>}
                 </div> 
-                { openedChat.chatId !== null && <Chat chat={openedChat}/> }
+                { openedChat.chatId !== null && <Chat chat={openedChat} sendMessage={sendMessage}/> }
             </div>
         </div>
     );

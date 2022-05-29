@@ -57,7 +57,7 @@ public class ChatController {
         return ResponseEntity.ok(messageService.getMessage(id));
     }
 
-    @GetMapping("/messages/{senderId}/{recipientId}/count")
+    @GetMapping("/messages/count/{senderId}/{recipientId}")
     public ResponseEntity<Long> countReceivedMessages(@PathVariable String senderId, @PathVariable String recipientId) {
         return ResponseEntity.ok(messageService.countReceivedMessages(senderId, recipientId));
     }

@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from 'recoil';
-import { chat } from '../recoil/example/atom';
+import { countReceivedMessages } from "../api/MessageAPI";
+import { chat, chatMessages, userId } from '../recoil/example/atom';
 import { calculateMessageDate } from "../utils/DateUtils";
 
 const ChatBox = ({ chatBox }) => {
 
     const [backgroundColor, setBackgroundColor] = useState('white');    
     const [, setOpenedChat] = useRecoilState(chat);
+    const [countMessages, setCountMessages] = useState(0);
+    const [messages, ] = useRecoilState(chatMessages);
+    const [userID, ] = useRecoilState(userId);
 
+    useEffect(()=>{
+        countReceivedMessages(chatBox.recipientId, userID)
+        .then(response => setCountMessages(response.data))
+        .catch(e=>console.log(e.response));
+    }, [messages]);
     return (
         <li className="chat-box-container" 
             style={{'backgroundColor': backgroundColor}} 
@@ -22,6 +31,7 @@ const ChatBox = ({ chatBox }) => {
             <p className="last-message-box">
                 <span className="last-message-user">{chatBox.lastMessageUser}:</span>
                 <span className="last-message">{chatBox.lastMessage}</span>
+                {countMessages !== 0 && <span className="count-received-messages">{countMessages}</span>}
             </p>
         </li>
     );

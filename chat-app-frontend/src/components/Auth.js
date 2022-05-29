@@ -41,7 +41,13 @@ const Auth = () => {
             setUserId(getCurrentUserId());
             setIsLogin(true);
         }, error => {
-            setPopupMessage("User " + username + " wasn't found!");
+            let message = "";
+            if (error.response.status === 0) {
+                message = "Server is not available!";
+            } else {
+                message = "User " + username + " wasn't found!";
+            }
+            setPopupMessage(message);
             setActivePopup(true);
         });
     }

@@ -1,15 +1,14 @@
 import './../styles/chat.css';
-import { useEffect, useState, useMemo } from "react";
-import { handleError, getCurrentUserName } from "../api/APIUtils";
+import { useEffect, useState } from "react";
+import { handleError } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
 import Dialogue from "./Dialogue";
 import { useRecoilState } from "recoil";
 import { popupMessage, userId, chatMessages, popupActive } from '../recoil/example/atom';
 import { BiSend } from "react-icons/bi";
 
-var stompClient = null;
 
-const Chat = ({ chat }) => {
+const Chat = ({ chat, sendMessage }) => {
 
     const [messages, setMessages] = useRecoilState(chatMessages);
     const [, setPopupMessage] = useRecoilState(popupMessage);
@@ -26,37 +25,38 @@ const Chat = ({ chat }) => {
             setPopupMessage(handleError(error.response.status));
             setActivePopup(true);
         });
-        connect();
+        //connect();
     }, [chat.chatId]);
 
 
-    const connect = () => {
-        const Stomp = require("stompjs");
-        var SockJS = require("sockjs-client");
-        SockJS = new SockJS("http://localhost:8080/ws");
-        stompClient = Stomp.over(SockJS);
-        stompClient.connect({}, onConnected, onError);
-    };
+    // const connect = () => {
+    //     const Stomp = require("stompjs");
+    //     var SockJS = require("sockjs-client");
+    //     SockJS = new SockJS("http://localhost:8080/ws");
+    //     stompClient = Stomp.over(SockJS);
+    //     stompClient.connect({}, onConnected, onError);
+    // };
 
-    const onConnected = () => {
-        console.log("connected");
-        stompClient.subscribe(
-            "/user/" + userID + "/queue/messages",
-            onMessageReceived
-        );
-    };
+    // const onConnected = () => {
+    //     console.log("connected");
+    //     stompClient.subscribe(
+    //         "/user/" + userID + "/queue/messages",
+    //         onMessageReceived
+    //     );
+    // };
 
-    const onError = (err) => {
-        console.log(err);
-    };
+    // const onError = (err) => {
+    //     console.log(err);
+    // };
 
-    const onMessageReceived = (msg) => {
-        const newMessages = [...messages];
-        newMessages.push(msg);
-        setMessages(newMessages);
-    };
+    // const onMessageReceived = (msg) => {
+    //     const newMessages = [...messages];
+    //     newMessages.push(msg);
+    //     console.log(newMessages);
+    //     setMessages(newMessages);
+    // };
 
-    const sendMessage = () => {
+    const initAndsendMessage = () => {
         if (sendText.trim() !== "") {
             const message = {
                 senderId: userID,
@@ -64,14 +64,8 @@ const Chat = ({ chat }) => {
                 content: sendText,
                 creationDate: new Date().toISOString(),
             };
-            console.log(chat);
-            stompClient.send("/app/chat", {}, JSON.stringify(message));
-            console.log(message);
-            const newMessages = [...messages];
-            newMessages.push(message);
-            setMessages(newMessages);
+            sendMessage(message);
             setSendText('');
-        
         }
     };
 
@@ -87,7 +81,7 @@ const Chat = ({ chat }) => {
                             }
                         }}>
                     </textarea>
-                    <BiSend className="send-btn" size={30} onClick={e=>sendMessage()}></BiSend>
+                    <BiSend className="send-btn" size={30} onClick={e=>initAndsendMessage()}></BiSend>
                 </div>
         </div>
     );
