@@ -10,7 +10,7 @@ import { BiSend } from "react-icons/bi";
 
 const Chat = ({ chat, sendMessage }) => {
 
-    const [messages, setMessages] = useRecoilState(chatMessages);
+    const [, setMessages] = useRecoilState(chatMessages);
     const [, setPopupMessage] = useRecoilState(popupMessage);
     const [, setActivePopup] = useRecoilState(popupActive);
     const [userID, ] = useRecoilState(userId);
@@ -25,7 +25,6 @@ const Chat = ({ chat, sendMessage }) => {
             setPopupMessage(handleError(error.response.status));
             setActivePopup(true);
         });
-        //connect();
     }, [chat.chatId]);
 
 
