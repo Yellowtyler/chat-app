@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { searchForUsers } from "../api/SearchAPI";
+import { getCurrentUserName } from "../api/APIUtils";
 import FoundUser from "./FoundUser";
 
 const SearchResult = ({ searchValue, isSearch }) => {
 
     const [foundUsers, setFoundUsers] = useState([]);
+    const getUserName = useMemo(() => {
+        return getCurrentUserName();
+    }, [isSearch]);
 
     useEffect(()=>{
         searchForUsers(searchValue).then(response => {
             console.log(response.data);
-            setFoundUsers(response.data);
+            const foundUsers = response.data.filter(v => v.username !== getUserName);
+            setFoundUsers(foundUsers);
         })
-    }, [isSearch]);
-
+    }, [isSearch, searchValue]);
 
     return (
         <div className="search-result-container">

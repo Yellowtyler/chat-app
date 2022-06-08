@@ -27,35 +27,7 @@ const Chat = ({ chat, sendMessage }) => {
         });
     }, [chat.chatId]);
 
-
-    // const connect = () => {
-    //     const Stomp = require("stompjs");
-    //     var SockJS = require("sockjs-client");
-    //     SockJS = new SockJS("http://localhost:8080/ws");
-    //     stompClient = Stomp.over(SockJS);
-    //     stompClient.connect({}, onConnected, onError);
-    // };
-
-    // const onConnected = () => {
-    //     console.log("connected");
-    //     stompClient.subscribe(
-    //         "/user/" + userID + "/queue/messages",
-    //         onMessageReceived
-    //     );
-    // };
-
-    // const onError = (err) => {
-    //     console.log(err);
-    // };
-
-    // const onMessageReceived = (msg) => {
-    //     const newMessages = [...messages];
-    //     newMessages.push(msg);
-    //     console.log(newMessages);
-    //     setMessages(newMessages);
-    // };
-
-    const initAndsendMessage = () => {
+    const initAndSendMessage = () => {
         if (sendText.trim() !== "") {
             const message = {
                 senderId: userID,
@@ -63,6 +35,7 @@ const Chat = ({ chat, sendMessage }) => {
                 content: sendText,
                 creationDate: new Date().toISOString(),
             };
+            console.log(message);
             sendMessage(message);
             setSendText('');
         }
@@ -80,7 +53,7 @@ const Chat = ({ chat, sendMessage }) => {
                             }
                         }}>
                     </textarea>
-                    <BiSend className="send-btn" size={30} onClick={e=>initAndsendMessage()}></BiSend>
+                    <BiSend className="send-btn" size={30} onClick={e=>initAndSendMessage()}></BiSend>
                 </div>
         </div>
     );

@@ -14,7 +14,10 @@ const Dialogue = ({ chat }) => {
 
     useEffect(()=> {
         getAllMessages(userID, chat.recipientId).then(response => {
-            setMessages(response.data);
+            console.log(response.data);
+            if (response.data[0] !== null) {
+                setMessages(response.data);
+            }
         }, error => {
             setPopupMessage(handleError(error.response.status));
             setActivePopup(true);

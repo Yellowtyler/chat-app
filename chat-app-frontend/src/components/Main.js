@@ -85,11 +85,11 @@ const Main = () => {
                         {isSearch &&<BiArrowBack className="back" onClick={e=>{setIsSearch(false); setSearchValue('');}}/>}
                         <input className="search" type="text" 
                             placeholder="Search"
-                            value={searchValue}
-                            onChange={e=>setSearchValue(e.target.value)}
+                    
                             onKeyPress={e=>{
                                 if (e.key === "Enter") {
                                     setIsSearch(true);
+                                    setSearchValue(e.target.value);
                                 }
                             }}>
                         </input>

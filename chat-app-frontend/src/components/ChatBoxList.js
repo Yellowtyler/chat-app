@@ -15,7 +15,9 @@ const ChatBoxList = () => {
 
     useEffect(() => {
         getChats(userID).then(response=>{
-            setChatList(response.data);
+            if (response.data[0] != null) {
+                setChatList(response.data);
+            }
             console.log(response);
         }, error => {
             setActivePopup(true);
