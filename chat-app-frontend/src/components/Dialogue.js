@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { chatMessages, popupActive, popupMessage, userId } from "../recoil/example/atom";
 import { handleError } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Dialogue = ({ chat }) => {
 
@@ -11,6 +11,7 @@ const Dialogue = ({ chat }) => {
     const [, setPopupMessage] = useRecoilState(popupMessage);
     const [, setActivePopup] = useRecoilState(popupActive);
     const [userID, ] = useRecoilState(userId);
+    const messageBoxRef = useRef(null);
 
     useEffect(()=> {
         getAllMessages(userID, chat.recipientId).then(response => {
@@ -22,13 +23,19 @@ const Dialogue = ({ chat }) => {
             setPopupMessage(handleError(error.response.status));
             setActivePopup(true);
         });
+        scrollToBottom();
     }, [messages.length]);
 
+
+    const scrollToBottom = () => {
+        messageBoxRef.current?.scrollIntoView({behavior: "smooth"});
+    };
     return (
         <div className="dialog-container">
             {messages.length > 0 && messages.map(m=><MessageBox message={m} chat={chat}/>)}
             {messages.length === 0 && <h5>Start conversation!</h5>}
 
+            <div ref={messageBoxRef}/>
         </div>
     );
 };
