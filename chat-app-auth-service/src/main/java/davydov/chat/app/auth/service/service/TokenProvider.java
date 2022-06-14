@@ -2,9 +2,11 @@ package davydov.chat.app.auth.service.service;
 
 import org.springframework.security.core.Authentication;
 
+import java.util.UUID;
+
 public interface TokenProvider {
 
-    String generateToken(Authentication authentication, Long id);
+    String generateToken(Authentication authentication, UUID id);
 
 
 

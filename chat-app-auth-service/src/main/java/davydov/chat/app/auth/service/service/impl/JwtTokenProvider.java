@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -22,10 +23,10 @@ public class JwtTokenProvider implements TokenProvider {
     private final JwtProperty jwtProperty;
 
     @Override
-    public String generateToken(Authentication authentication, Long id) {
+    public String generateToken(Authentication authentication, UUID id) {
         var now = System.currentTimeMillis();
         return Jwts.builder()
-                .setSubject(String.valueOf(id))
+                .setSubject(id.toString())
                 .claim("authorities", authentication
                         .getAuthorities()
                         .stream()

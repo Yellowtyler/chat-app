@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,7 +17,7 @@ public class User {
 
     @GeneratedValue
     @Id
-    private Long id;
+    private UUID id;
 
     @Column(unique = true)
     private String username;
