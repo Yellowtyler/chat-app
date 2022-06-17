@@ -27,6 +27,7 @@ const Dialogue = ({ chat }) => {
     }, [messages.length]);
 
 
+
     const scrollToBottom = () => {
         messageBoxRef.current?.scrollIntoView({behavior: "smooth"});
     };

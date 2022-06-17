@@ -45,7 +45,11 @@ const Chat = ({ chat, sendMessage }) => {
         <div className="chat-container">
                 <Dialogue chat={chat}/>
                 <div className="chat-input-container">
-                    <textarea className="chat-input" type="text" rows='3' cols='25' placeholder="Enter text..." value={sendText} onChange={e=>setSendText(e.target.value)} 
+                    <textarea 
+                        className="chat-input" type="text" 
+                        rows='3' cols='25' maxlength="120" 
+                        placeholder="Enter text..." value={sendText} 
+                        onChange={e=>setSendText(e.target.value)} 
                         onKeyPress={(event) => {
                             if (event.key === "Enter") {
                                 sendMessage();

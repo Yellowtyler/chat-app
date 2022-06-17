@@ -22,6 +22,10 @@ const ChatBox = ({ chatBox }) => {
             .catch(e=>console.log(e.response));
     }, [messages]);
 
+    const shortenString = () => {
+        return chatBox.lastMessage.length <= 30 ? chatBox.lastMessage : chatBox.lastMessage.substring(0, 30) + "...";
+    }
+
     return (
         <li className="chat-box-container" 
             style={{'backgroundColor': backgroundColor}} 
@@ -35,7 +39,7 @@ const ChatBox = ({ chatBox }) => {
             </p>
             <p className="last-message-box">
                 <span className="last-message-user">{chatBox.lastMessageUser}:</span>
-                <span className="last-message">{chatBox.lastMessage}</span>
+                <span className="last-message">{shortenString()}</span>
                 {countMessages !== 0 && <span className="count-received-messages">{countMessages}</span>}
             </p>
         </li>
