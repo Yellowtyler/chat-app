@@ -4,6 +4,7 @@ export function calculateMessageDate(dateString) {
     if ((now.getTime() - date.getTime()) / (1000*3600*24) > 1) {
         return date.toDateString();
     } else {
-        return date.getHours() + ":" + date.getMinutes();
+        const minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        return date.getHours() + ":" + minutes; 
     }
 }

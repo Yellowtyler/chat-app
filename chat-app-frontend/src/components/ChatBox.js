@@ -18,8 +18,8 @@ const ChatBox = ({ chatBox }) => {
 
     useEffect(()=>{
         countReceivedMessages(chatBox.recipientId, userID)
-        .then(response => setCountMessages(response.data))
-        .catch(e=>console.log(e.response));
+            .then(response => setCountMessages(response.data))
+            .catch(e=>console.log(e.response));
     }, [messages]);
 
     return (
