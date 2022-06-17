@@ -17,12 +17,17 @@
 }
 
 .navbar {
-    height: 40px;
+    height: 20px;
     background-color: white;
     align-items: center;
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+}
+
+.logout-btn {
+    margin-left: auto;
+    cursor: pointer;
 }
 
 .messanger-container {
@@ -42,7 +47,15 @@
 
 .search-container {
     justify-content: space-between;
-    min-height: 60px;
+    display: inline;
+    flex-direction: row;
+}
+
+.search {
+    border: 0ch;
+    border-radius: 4px;
+    border-bottom: solid 0.1em;
+    width: 98%;
 }
 
 .chat-list-container {
@@ -54,11 +67,10 @@
 }
 
 .chat-box-container {
-    border: solid 0.1em;
     color: black;
     cursor: pointer;
     list-style-type: none;
-    border-radius: 8px;
+    border-bottom: solid 0.1em;
 }
 
 .title {

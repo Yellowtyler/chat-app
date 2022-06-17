@@ -7,7 +7,7 @@ import { useRecoilState } from 'recoil';
 import { chat, chatMessages } from "../recoil/example/atom";
 import { isLoggedUser, userId } from '../recoil/example/atom';
 import SearchResult from './SearchResult';
-import { BiArrowBack } from "react-icons/bi";
+import { BiArrowBack, BiExit } from "react-icons/bi";
 import ChatBoxList from './ChatBoxList';
 
 var stompClient = null;
@@ -76,13 +76,12 @@ const Main = () => {
     return (
         <div className="main-page">
             <div className="navbar">
-                <span>Menu</span>
-                <Button className="logout-btn" variant="success" onClick={handleLogout}>Logout</Button>
+                <BiExit className="logout-btn" size={25} onClick={handleLogout}>Logout</BiExit>
             </div>
             <div className="messanger-container">
                 <div className="chat-and-search-container">
                     <div className="search-container">
-                        {isSearch &&<BiArrowBack className="back" onClick={e=>{setIsSearch(false); setSearchValue('');}}/>}
+                        {isSearch && <BiArrowBack className="back" size={20} onClick={e=>{setIsSearch(false); setSearchValue('');}}/>}
                         <input className="search" type="text" 
                             placeholder="Search"
                     
