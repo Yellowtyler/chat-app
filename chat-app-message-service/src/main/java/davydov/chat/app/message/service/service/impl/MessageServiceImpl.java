@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -27,9 +28,18 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> getAllMessages(String senderId, String recipientId) {
         var chatRoom = chatRepository.findBySenderIdAndRecipientId(senderId, recipientId).get();
         if (chatRoom.getMessages().size() > 0) {
-            updateStatus(senderId, recipientId, DELIVERED);
+            var receivedMessages = chatRoom.getMessages()
+                .stream()
+                .filter(m -> m.getMessageStatus().equals(RECEIVED) && Objects.equals(m.getRecipientId(), senderId))
+                .collect(Collectors.toUnmodifiableList());
+            if (receivedMessages.size() != 0) {
+                updateStatus(recipientId, senderId, DELIVERED);
+            }
         }
-        return chatRoom.getMessages().stream().sorted(Comparator.comparing(Message::getCreationDate)).collect(Collectors.toUnmodifiableList());
+        return chatRoom.getMessages()
+                .stream()
+                .sorted(Comparator.comparing(Message::getCreationDate))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
