@@ -9,12 +9,14 @@ const MessageBox = ({ message, chat }) => {
     const [messages, ] = useRecoilState(chatMessages);
     const [userID, ] = useRecoilState(userId);
     const calculateDate = useMemo(() => {
+        console.log(message.creationDate)
         return calculateMessageDate(message.creationDate);
-    }, [messages]);
+    }, [messages.length]);
 
     const getUserName = useMemo(() => {
         return getCurrentUserName();
     }, [messages]);
+
 
     return (
         <div>

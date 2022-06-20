@@ -5,8 +5,7 @@ import { getAllMessages } from "../api/MessageAPI";
 import Dialogue from "./Dialogue";
 import { useRecoilState } from "recoil";
 import { popupMessage, userId, chatMessages, popupActive } from '../recoil/example/atom';
-import { BiSend } from "react-icons/bi";
-
+import { BiSend, BiDownArrowAlt } from "react-icons/bi";
 
 const Chat = ({ chat, sendMessage }) => {
 
@@ -14,9 +13,8 @@ const Chat = ({ chat, sendMessage }) => {
     const [, setPopupMessage] = useRecoilState(popupMessage);
     const [, setActivePopup] = useRecoilState(popupActive);
     const [userID, ] = useRecoilState(userId);
-
     const [sendText, setSendText] = useState('');
-
+    const [isClicked, setIsClicked] = useState(false);
     useEffect(() => {
         getAllMessages(userID, chat.recipientId).then(response => {
             setMessages(response.data);
@@ -41,9 +39,17 @@ const Chat = ({ chat, sendMessage }) => {
         }
     };
 
+    const handleClick = () => {
+        setIsClicked(!isClicked);
+    };
+
+
     return (
         <div className="chat-container">
-                <Dialogue chat={chat}/>
+                <Dialogue chat={chat} isClicked={isClicked} setIsClicked={setIsClicked}/>
+                <div className='scroll-to-bottom-btn'>
+                    <BiDownArrowAlt size={30} onClick={handleClick}></BiDownArrowAlt>
+                </div>
                 <div className="chat-input-container">
                     <textarea 
                         className="chat-input" type="text" 
@@ -52,7 +58,7 @@ const Chat = ({ chat, sendMessage }) => {
                         onChange={e=>setSendText(e.target.value)} 
                         onKeyPress={(event) => {
                             if (event.key === "Enter") {
-                                sendMessage();
+                                initAndSendMessage();
                                 setSendText('');
                             }
                         }}>

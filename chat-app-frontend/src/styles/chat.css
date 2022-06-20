@@ -34,6 +34,12 @@
     outline: none;
 }
 
+.scroll-to-bottom-btn {
+    margin-left: 40%;
+    background-color: white;
+    border-radius: 100%;
+}
+
 .send-btn {
     visibility: visible;
     background-color: white;
@@ -61,11 +67,12 @@
 }
 
 .message.sent {
-    margin-left: 30rem;
+    margin-left: 52%;
+    margin-top: 1rem;
 }
 
 .message.recieved {
-    margin-left: 15rem;
+    margin-left: 37%;
     margin-top: 2rem;
 }
 

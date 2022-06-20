@@ -5,7 +5,7 @@ import { handleError } from "../api/APIUtils";
 import { getAllMessages } from "../api/MessageAPI";
 import { useEffect, useRef } from "react";
 
-const Dialogue = ({ chat }) => {
+const Dialogue = ({ chat, isClicked, setIsClicked }) => {
 
     const [messages, setMessages] = useRecoilState(chatMessages);
     const [, setPopupMessage] = useRecoilState(popupMessage);
@@ -23,19 +23,33 @@ const Dialogue = ({ chat }) => {
             setPopupMessage(handleError(error.response.status));
             setActivePopup(true);
         });
-        scrollToBottom();
     }, [messages.length]);
 
-
+    useEffect(() => {
+        scrollToBottom();
+    }, [isClicked]);
 
     const scrollToBottom = () => {
         messageBoxRef.current?.scrollIntoView({behavior: "smooth"});
     };
+
+    const handleScroll = (event) => {
+        const { scrollHeight, scrollTop, clientHeight } = event.target;
+        const scroll = scrollHeight - scrollTop - clientHeight
+        if (scroll > 0) {
+            console.log(scroll);
+          // We are not at the bottom of the scroll content
+        }
+        else if (scroll === 0){
+          // We are at the bottom
+        }
+    };
+
     return (
-        <div className="dialog-container">
+        <div className="dialog-container" onScroll={handleScroll}
+        >
             {messages.length > 0 && messages.map(m=><MessageBox message={m} chat={chat}/>)}
             {messages.length === 0 && <h5>Start conversation!</h5>}
-
             <div ref={messageBoxRef}/>
         </div>
     );
