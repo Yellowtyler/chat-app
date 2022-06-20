@@ -25,7 +25,7 @@ public class MessageServiceImpl implements MessageService {
     private final ChatRepository chatRepository;
 
     @Override
-    public List<Message> getAllMessages(String senderId, String recipientId) {
+    public List<Message> getMessages(String senderId, String recipientId, Long limit) {
         var chatRoom = chatRepository.findBySenderIdAndRecipientId(senderId, recipientId).get();
         if (chatRoom.getMessages().size() > 0) {
             var receivedMessages = chatRoom.getMessages()
@@ -38,6 +38,8 @@ public class MessageServiceImpl implements MessageService {
         }
         return chatRoom.getMessages()
                 .stream()
+                .sorted(Comparator.comparing(Message::getCreationDate).reversed())
+                .limit(limit)
                 .sorted(Comparator.comparing(Message::getCreationDate))
                 .collect(Collectors.toUnmodifiableList());
     }

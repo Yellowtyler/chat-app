@@ -1,7 +1,7 @@
 import './../styles/chat.css';
 import { useEffect, useState } from "react";
 import { handleError } from "../api/APIUtils";
-import { getAllMessages } from "../api/MessageAPI";
+import { getMessages } from "../api/MessageAPI";
 import Dialogue from "./Dialogue";
 import { useRecoilState } from "recoil";
 import { popupMessage, userId, chatMessages, popupActive } from '../recoil/example/atom';
@@ -15,15 +15,17 @@ const Chat = ({ chat, sendMessage }) => {
     const [userID, ] = useRecoilState(userId);
     const [sendText, setSendText] = useState('');
     const [isClicked, setIsClicked] = useState(false);
+    const [messageLimit, setMessageLimit] = useState(10);
+
     useEffect(() => {
-        getAllMessages(userID, chat.recipientId).then(response => {
+        getMessages(userID, chat.recipientId, messageLimit).then(response => {
             setMessages(response.data);
             console.log(response.data);
         }, error => {
             setPopupMessage(handleError(error.response.status));
             setActivePopup(true);
         });
-    }, [chat.chatId]);
+    }, [chat.chatId, messageLimit]);
 
     const initAndSendMessage = () => {
         if (sendText.trim() !== "") {
@@ -43,10 +45,9 @@ const Chat = ({ chat, sendMessage }) => {
         setIsClicked(!isClicked);
     };
 
-
     return (
         <div className="chat-container">
-                <Dialogue chat={chat} isClicked={isClicked} setIsClicked={setIsClicked}/>
+                <Dialogue chat={chat} isClicked={isClicked} messageLimit={messageLimit} setMessageLimit={setMessageLimit}/>
                 <div className='scroll-to-bottom-btn'>
                     <BiDownArrowAlt size={30} onClick={handleClick}></BiDownArrowAlt>
                 </div>

@@ -12,8 +12,8 @@ export const getOrCreateChat = (getOrCreateChatRequest) => {
     return axios.post(MESSAGE_SERVICE_URL + '/chats', getOrCreateChatRequest, {headers: authHeader()});
 };
 
-export const getAllMessages = (senderId, recipientId) => {
-    return axios.get(MESSAGE_SERVICE_URL + '/messages/' + senderId + '/' + recipientId, {headers: authHeader()});
+export const getMessages = (senderId, recipientId, limit) => {
+    return axios.get(MESSAGE_SERVICE_URL + '/messages/' + senderId + '/' + recipientId + '/' + limit, {headers: authHeader()});
 };
 
 export const countReceivedMessages = (senderId, recipientId) => {
