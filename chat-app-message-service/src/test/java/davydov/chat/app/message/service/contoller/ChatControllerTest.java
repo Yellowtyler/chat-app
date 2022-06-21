@@ -22,6 +22,7 @@ import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -46,7 +47,7 @@ class ChatControllerTest {
 
     @Test
     public void verifyMessageIsReceived() throws Exception {
-        Long id = 1L;
+        UUID id = UUID.randomUUID();
 
         webSocketStompClient.setMessageConverter(new MappingJackson2MessageConverter());
 

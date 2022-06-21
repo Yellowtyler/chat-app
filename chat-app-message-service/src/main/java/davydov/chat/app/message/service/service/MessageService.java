@@ -9,7 +9,7 @@ public interface MessageService {
 
     Message getMessage(String id);
 
-    void save(Message message);
+    Message save(Message message);
 
     Long countReceivedMessages(String senderId, String recipientId);
 
