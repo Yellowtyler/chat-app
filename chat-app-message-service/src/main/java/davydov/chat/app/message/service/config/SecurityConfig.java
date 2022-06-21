@@ -27,8 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.POST, "/chat").permitAll()
             .antMatchers(HttpMethod.GET, "/messages/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/search/**").permitAll()
             .antMatchers("/chats/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/ws/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/ws/**").permitAll()
             .anyRequest()
             .authenticated();
     }

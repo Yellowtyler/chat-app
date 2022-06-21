@@ -4,19 +4,17 @@ import { getOrCreateChat } from "../api/MessageAPI";
 import { chat, userId } from "../recoil/example/atom";
 import { useState } from "react";
 
-const FoundUser = ({ foundUser }) => {
-
+export const FoundMessage = ({ foundMessage }) => {
     const [backgroundColor, setBackgroundColor] = useState('white')
     const [, setOpenedChat] = useRecoilState(chat);
     const [userID, ] = useRecoilState(userId);
 
     const handleClick = () => {
-        console.log(foundUser);
         const getOrCreateChatRequest = {
             senderId: userID,
             senderName: getCurrentUserName(), 
-            recipientId: foundUser.id, 
-            recipientName: foundUser.username
+            recipientId: foundMessage.recipientId, 
+            recipientName: foundMessage.recipientName
         };
         getOrCreateChat(getOrCreateChatRequest).then(response => {
             console.log(response.data);
@@ -29,15 +27,13 @@ const FoundUser = ({ foundUser }) => {
     return (
         <div 
             className='found-user' 
-            onClick={handleClick} value={foundUser.id}
+            onClick={handleClick} value={foundMessage.id}
             style={{'backgroundColor': backgroundColor}} 
             onMouseOver={e=>setBackgroundColor('whitesmoke')} 
             onMouseOut={e=>setBackgroundColor('white')} 
             onMouseDown={e=>setBackgroundColor('grey')}
         >
-            {foundUser.username}
+            {foundMessage.content}
         </div>
     );
-};
-
-export default FoundUser;
+}

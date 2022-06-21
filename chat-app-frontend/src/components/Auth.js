@@ -45,7 +45,7 @@ const Auth = () => {
             if (error.response.status === 0) {
                 message = "Server is not available!";
             } else {
-                message = "User " + username + " wasn't found!";
+                message = "Wrong password or user " + username + " wasn't found!";
             }
             setPopupMessage(message);
             setActivePopup(true);

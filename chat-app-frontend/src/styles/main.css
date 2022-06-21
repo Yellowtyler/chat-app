@@ -18,7 +18,7 @@
 
 .navbar {
     height: 20px;
-    background-color: white;
+    
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -26,9 +26,25 @@
 }
 
 .logout-btn {
+    border: solid 0.5em;
+    border-color: white;
+    border-radius: 116px;
+    background-color: white;
     margin-left: auto;
     cursor: pointer;
 }
+
+.recipient-info {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border: solid 0.5em;
+    border-color: white;
+    margin-left: auto;
+    align-items: center;
+    border-radius: 16px;
+}
+
 
 .messanger-container {
     display: flex;
@@ -56,6 +72,14 @@
     border-radius: 4px;
     border-bottom: solid 0.1em;
     width: 98%;
+}
+
+.found-users {
+    margin-left: 0.5em;
+}
+
+.found-user {
+    cursor: pointer;
 }
 
 .chat-list-container {

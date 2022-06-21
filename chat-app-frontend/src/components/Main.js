@@ -9,6 +9,7 @@ import { isLoggedUser, userId } from '../recoil/example/atom';
 import SearchResult from './SearchResult';
 import { BiArrowBack, BiExit } from "react-icons/bi";
 import ChatBoxList from './ChatBoxList';
+import { getUserStatus, updateUserStatus } from '../api/UserAPI';
 
 var stompClient = null;
 
@@ -19,10 +20,32 @@ const Main = () => {
     const [messages, setMessages ] = useRecoilState(chatMessages);
     const [isSearch, setIsSearch] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [isOtherUserOnline, setIsOtherUserOnline] = useState(false);
 
     useEffect(() => {
-        connect();
+        connect();  
+        window.addEventListener('unload', handleTabClosing);
+        return () => {
+            window.removeEventListener('unload', handleTabClosing);
+        }
     }, []);
+
+    const handleTabClosing = () => {
+        updateUserStatus(userID, window.navigator.onLine);
+    }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (openedChat.recipientId) {
+                getUserStatus(openedChat.recipientId).then(response => {
+                    setIsOtherUserOnline(response.data);
+                });
+            }
+        }, 5000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, [openedChat]);
 
     const handleLogout = () => {
         logout();
@@ -76,6 +99,10 @@ const Main = () => {
     return (
         <div className="main-page">
             <div className="navbar">
+                {openedChat.recipientName && <div className='recipient-info'>
+                    <span>{openedChat.recipientName}</span>
+                {isOtherUserOnline ? <span>online</span> : <span>offline</span>}                    
+                </div>}
                 <BiExit className="logout-btn" size={25} onClick={handleLogout}>Logout</BiExit>
             </div>
             <div className="messanger-container">
@@ -84,8 +111,7 @@ const Main = () => {
                         {isSearch && <BiArrowBack className="back" size={20} onClick={e=>{setIsSearch(false); setSearchValue('');}}/>}
                         <input className="search" type="text" 
                             placeholder="Search"
-                    
-                            onKeyPress={e=>{
+                            onKeyPress={e => {
                                 if (e.key === "Enter") {
                                     setIsSearch(true);
                                     setSearchValue(e.target.value);

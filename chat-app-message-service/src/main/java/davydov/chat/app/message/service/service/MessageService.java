@@ -13,4 +13,6 @@ public interface MessageService {
 
     Long countReceivedMessages(String senderId, String recipientId);
 
+    List<Message> searchForMessages(String message);
+
 }

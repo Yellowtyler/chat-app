@@ -65,10 +65,12 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.countBySenderIdAndRecipientIdAndMessageStatus(senderId, recipientId, RECEIVED);
     }
 
+    @Override
+    public List<Message> searchForMessages(String message) {
+        return messageRepository.findLikeValue(message);
+    }
+
     private void updateStatus(String senderId, String recipientId, MessageStatus status) {
         messageRepository.updateStatus(status, senderId, recipientId);
     }
-
-
-
 }
