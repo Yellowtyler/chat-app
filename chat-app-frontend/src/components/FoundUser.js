@@ -28,7 +28,7 @@ const FoundUser = ({ foundUser }) => {
 
     return (
         <div 
-            className='found-user' 
+            className='search-result' 
             onClick={handleClick} value={foundUser.id}
             style={{'backgroundColor': backgroundColor}} 
             onMouseOver={e=>setBackgroundColor('whitesmoke')} 

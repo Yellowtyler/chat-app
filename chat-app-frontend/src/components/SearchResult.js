@@ -26,13 +26,13 @@ const SearchResult = ({ searchValue, isSearch }) => {
 
     return (
         <div className="search-result-container">
-            <div className="found-users">
+            <div className="search-results">
                 <h5>Users:</h5>
                 { 
                     foundUsers.map(u => <FoundUser foundUser={u}/>)
                 }
             </div>
-            <div className="found-messages">
+            <div className="search-results">
                 <h5>Messages:</h5>
                 {
                     foundMessages.map(m => <FoundMessage foundMessage={m}/>)

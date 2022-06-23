@@ -1,6 +1,5 @@
 import './../styles/main.css';
 import Chat from './Chat';
-import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { logout } from '../api/AuthAPI';
 import { useRecoilState } from 'recoil';

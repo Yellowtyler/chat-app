@@ -74,12 +74,15 @@
     width: 98%;
 }
 
-.found-users {
+.search-results {
     margin-left: 0.5em;
 }
 
-.found-user {
+.search-result {
     cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
 }
 
 .chat-list-container {

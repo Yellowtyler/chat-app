@@ -22,6 +22,10 @@ logging:
 server:
   port: 8080
 
+client:
+  location:
+    url: http://localhost:3000
+
 jwt:
   uri: /auth/**
   header: Authorization
