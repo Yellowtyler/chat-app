@@ -3,6 +3,7 @@ package davydov.chat.app.auth.service.controller;
 import davydov.chat.app.auth.service.payload.UpdateUserStatusRequest;
 import davydov.chat.app.auth.service.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserStatus(id));
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/status")
-    public ResponseEntity<Boolean> updateUserStatus(UpdateUserStatusRequest request) {
-        return ResponseEntity.ok(userService.updateUserStatus(request));
+    public void updateUserStatus(@RequestBody UpdateUserStatusRequest request) {
+        userService.updateUserStatus(request);
     }
 }

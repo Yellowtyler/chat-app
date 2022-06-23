@@ -23,15 +23,16 @@ const Main = () => {
     const [isOtherUserOnline, setIsOtherUserOnline] = useState(false);
 
     useEffect(() => {
-        connect();  
-        window.addEventListener('unload', handleTabClosing);
+        connect();
+        updateUserStatus(userID, true);  
+        window.addEventListener('beforeunload', handleTabClosing);
         return () => {
-            window.removeEventListener('unload', handleTabClosing);
+            window.removeEventListener('beforeunload', handleTabClosing);
         }
     }, []);
 
     const handleTabClosing = () => {
-        updateUserStatus(userID, window.navigator.onLine);
+        updateUserStatus(userID, false);
     }
 
     useEffect(() => {
@@ -48,6 +49,7 @@ const Main = () => {
     }, [openedChat]);
 
     const handleLogout = () => {
+        updateUserStatus(userID, false);
         logout();
         setIsLogin(false);
         setUserId(null);

@@ -3,16 +3,17 @@ import '../styles/popup.css';
 import { useRecoilState } from 'recoil';
 import { chat, isLoggedUser, popupActive, popupMessage, userId } from '../recoil/example/atom';
 import { logout } from '../api/AuthAPI';
-
+import { updateUserStatus } from '../api/UserAPI';
 const Popup = () => {
 
     const [, setActive] = useRecoilState(popupActive);
     const [message, setMessage] = useRecoilState(popupMessage);
     const [, setIsLogin] = useRecoilState(isLoggedUser);
-    const [, setUserId] = useRecoilState(userId);
+    const [userID, setUserId] = useRecoilState(userId);
     const [, setChat] = useRecoilState(chat);
 
     const handleClick = (e) => {
+        updateUserStatus(userID, false);
         logout();
         setIsLogin(false);
         setMessage('');

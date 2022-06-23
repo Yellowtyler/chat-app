@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserStatus(UpdateUserStatusRequest request) {
-        return userRepository.setIsActive(request.getId(), request.isStatus());
+    public void updateUserStatus(UpdateUserStatusRequest request) {
+        userRepository.setIsActive(UUID.fromString(request.getId()), request.isStatus());
     }
 
 }

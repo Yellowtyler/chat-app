@@ -11,5 +11,5 @@ public interface UserService {
 
     boolean getUserStatus(String id);
 
-    boolean updateUserStatus(UpdateUserStatusRequest request);
+    void updateUserStatus(UpdateUserStatusRequest request);
 }
