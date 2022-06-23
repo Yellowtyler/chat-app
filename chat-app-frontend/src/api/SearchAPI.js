@@ -3,6 +3,7 @@ import { authHeader } from "./APIUtils";
 
 const USER_SEARCH_SERVICE_URL = "http://localhost:8081/search/";
 const MESSAGE_SEARCH_SERVICE_URL = "http://localhost:8080/search/";
+
 export const searchForUsers = (username) => {
     return axios.get(USER_SEARCH_SERVICE_URL + username);
 };

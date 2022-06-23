@@ -4,6 +4,7 @@ import { validateUsername, validateMail, validatePassword } from '../utils/Valid
 import { useState } from 'react';
 import {BiArrowBack} from "react-icons/bi";
 import { useRecoilState } from 'recoil';
+import { ForgotPassword } from './ForgotPassword';
 import { isLoggedUser, userId, popupMessage, popupActive } from '../recoil/example/atom';
 import { Alert } from 'react-bootstrap';
 import { getCurrentUserId } from '../api/APIUtils';
@@ -16,7 +17,7 @@ const Auth = () => {
     const [, setPopupMessage] = useRecoilState(popupMessage);
 
     const [isLoginPage, setIsLoginPage] = useState(true);
-
+    const [isForgetPassword, setIsForgetPassword] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
@@ -140,10 +141,14 @@ const Auth = () => {
         setIsLoginPage(!isLoginPage);
     }
 
+    const handleClickForgetPassword = (e) => {
+        setIsForgetPassword(true);
+    };
+
     return (
         <div className='container'>
         <div className="auth-page">
-            {isLoginPage && <div className="login-container">
+            {isLoginPage && !isForgetPassword && <div className="login-container">
                 <input className="login" type="text" placeholder="Enter login" onChange={e=>setUsername(e.target.value)}></input>
                 <input className="password" type="password" placeholder="Enter password" 
                     onChange={e=>setPassword(e.target.value)}
@@ -154,12 +159,13 @@ const Auth = () => {
                     }}>
 
                 </input>
-                <div className="forgot-password-container">
-                    <a className="forgot-password" href="localhost">Forgot password?</a>
+                <div className="forgot-password-login-container">
+                    <span className="forgot-password" name="forget-password" onClick={handleClickForgetPassword}>Forgot password?</span>
                 </div>
                 <button className="login-btn" onClick={handleLogin}>Login</button>
                 <button className="signup-btn" onClick={switchPage}>Signup</button>
             </div>}
+            {isLoginPage && isForgetPassword && <ForgotPassword setIsForgetPassword={setIsForgetPassword}/>}
             {!isLoginPage && !show && <div className="signup-container">
                 <BiArrowBack className="back" onClick={switchPage}/>
                 <input className="login-signup" type="text"  style={{'color': usernameFieldColor}} placeholder="Enter login" onChange={e=>changeAndValidateUsername(e.target.value)}></input>

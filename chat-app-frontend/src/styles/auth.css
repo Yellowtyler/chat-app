@@ -55,12 +55,59 @@
 
 .forgot-password {
   font-size: 14px;
-  margin-right: 3.5rem;
+  color: rgb(62, 95, 185);
+  cursor: pointer;
 }
+
+.forgot-password-container {
+  border-radius: 10px;
+  vertical-align: middle;
+  background-color: white;
+  color: white;
+  display: flex;
+  align-items: center; 
+  justify-content: space-around;
+  border: solid 0.1em;
+  flex-direction: column;
+  min-height: 120px;
+  min-width: 220px;
+  height: 120px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.forgot-password-back {
+  size: 14px;
+  overflow: visible;
+  margin-right: 9.5rem;
+  cursor: pointer;
+  color: black;
+}
+
+.forgot-password-input {
+  justify-content: space-between;
+  border: 0ch;
+  border-bottom: solid 0.1em;
+}
+
+.forgot-password-btn {
+  border: none;
+  width: 80%;
+  height: 20%;
+  display: block;
+  border-radius: 15px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(62, 95, 185);
+}
+
 
 .btn-container {
   flex-direction: row;
-
 }
 
 .login-btn {

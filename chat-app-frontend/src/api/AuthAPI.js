@@ -11,6 +11,14 @@ export const loginUser = (login) => {
     .then(response => localStorage.setItem("accessToken", response.data.token));
 };
 
+export const sendMailToChangePassword = (userId) => {
+    return axios.post(AUTH_SERVICE_URL + '/mail/' + userId);
+};
+
+export const changePassword = (changePasswordRequest) => {
+    return axios.post(AUTH_SERVICE_URL + '/changePassword', changePasswordRequest);
+}
+
 export const logout = () => {
     localStorage.removeItem("accessToken");
 };

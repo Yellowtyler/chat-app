@@ -25,9 +25,11 @@ const ChatBoxList = () => {
         });
     }, [messages]);
 
-    return (<ul className="chat-list-container">
-    { chatList.map(chatBox => (<ChatBox chatBox={chatBox}/>)) }
-</ul>);
+    return (
+        <ul className="chat-list-container">
+            { chatList.map(chatBox => (<ChatBox chatBox={chatBox}/>)) }
+        </ul>
+    );
 };
 
 export default ChatBoxList;
