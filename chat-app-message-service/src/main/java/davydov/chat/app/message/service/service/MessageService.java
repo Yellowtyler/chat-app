@@ -15,4 +15,5 @@ public interface MessageService {
 
     List<Message> searchForMessages(String message);
 
+    void deleteMessage(String id);
 }

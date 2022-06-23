@@ -70,6 +70,11 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.findLikeValue(message);
     }
 
+    @Override
+    public void deleteMessage(String id) {
+        messageRepository.deleteById(UUID.fromString(id));
+    }
+
     private void updateStatus(String senderId, String recipientId, MessageStatus status) {
         messageRepository.updateStatus(status, senderId, recipientId);
     }

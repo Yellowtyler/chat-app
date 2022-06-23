@@ -67,12 +67,12 @@
 }
 
 .message.sent {
-    margin-left: 52%;
-    margin-top: 1rem;
+    margin-left: 40%;
+    margin-top: 2rem;
 }
 
 .message.recieved {
-    margin-left: 37%;
+    margin-left: 25%;
     margin-top: 2rem;
 }
 
@@ -94,4 +94,13 @@
     font-size: 10px;
     font-weight: bold;
     margin-left: auto;
+}
+
+.delete-message {
+   margin-right: auto;
+   cursor: pointer;
+}
+
+.cancel-action {
+    cursor: pointer;
 }

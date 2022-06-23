@@ -45,23 +45,6 @@ public class ChatController {
         );
     }
 
-    //todo: DELETE chat and messages
-    @GetMapping("/messages/{senderId}/{recipientId}/{limit}")
-    public ResponseEntity<?> getMessages(@PathVariable String senderId, @PathVariable String recipientId, @PathVariable Long limit) {
-        return ResponseEntity.ok(messageService.getMessages(senderId, recipientId, limit));
-
-    }
-
-    @GetMapping("/messages/{id}")
-    public ResponseEntity<Message> getMessage(@PathVariable String id) {
-        return ResponseEntity.ok(messageService.getMessage(id));
-    }
-
-    @GetMapping("/messages/count/{senderId}/{recipientId}")
-    public ResponseEntity<Long> countReceivedMessages(@PathVariable String senderId, @PathVariable String recipientId) {
-        return ResponseEntity.ok(messageService.countReceivedMessages(senderId, recipientId));
-    }
-
     @GetMapping("/chats/{id}")
     public ResponseEntity<List<ChatResponse>> getAllChats(@PathVariable String id) {
         return ResponseEntity.ok(chatService.getAllChats(id));

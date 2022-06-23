@@ -19,3 +19,7 @@ export const getMessages = (senderId, recipientId, limit) => {
 export const countReceivedMessages = (senderId, recipientId) => {
     return axios.get(MESSAGE_SERVICE_URL+ '/messages/count/' + senderId + '/' + recipientId, {headers: authHeader()});
 };
+
+export const deleteMessage = (messageId) => {
+    return axios.delete(MESSAGE_SERVICE_URL + '/messages/' + messageId, {headers: authHeader()});
+};
