@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { userId } from "../recoil/example/atom";
+import { userId } from "../../recoil/example/atom";
 import { useState } from "react";
 
 export const FoundMessage = ({ foundMessage }) => {

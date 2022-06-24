@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
-import { getCurrentUserName } from "../api/APIUtils";
-import { getOrCreateChat } from "../api/MessageAPI";
-import { chat, userId } from "../recoil/example/atom";
+import { getCurrentUserName } from "../../api/APIUtils";
+import { getOrCreateChat } from "../../api/MessageAPI";
+import { chat, userId } from "../../recoil/example/atom";
 import { useState } from "react";
 
 const FoundUser = ({ foundUser }) => {

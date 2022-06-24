@@ -1,6 +1,6 @@
-import Auth from './components/Auth';
-import Main from './components/Main';
-import Popup from './components/Popup';
+import Auth from './components/auth/Auth';
+import Main from './components/chat/Main';
+import Popup from './components/chat/Popup';
 import { useRecoilState } from 'recoil';
 import { isLoggedUser, popupActive } from './recoil/example/atom';
 

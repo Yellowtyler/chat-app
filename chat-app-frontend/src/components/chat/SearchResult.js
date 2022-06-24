@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
-import { searchForMessages, searchForUsers } from "../api/SearchAPI";
-import { getCurrentUserName } from "../api/APIUtils";
+import { searchForMessages, searchForUsers } from "../../api/SearchAPI";
+import { getCurrentUserName } from "../../api/APIUtils";
 import FoundUser from "./FoundUser";
 import { FoundMessage } from "./FoundMessage";
 

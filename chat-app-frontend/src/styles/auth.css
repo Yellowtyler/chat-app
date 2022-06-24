@@ -1,22 +1,23 @@
 .container {
-    margin-left: auto;
-    margin-right: auto;
-    min-height: 100vh;
-    min-width: 100vw;
-    background-image: url("./../images/background.png");
-    background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-image: url("./../images/background.png");
+  background-size: cover;
   }
   
 .auth-page {
-    padding: 2rem;
-    height: 400px;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    position: relative;
+  padding: 2rem;
+  height: 400px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  position: relative;
 }
 
 .login-container {
+
   border-radius: 10px;
   vertical-align: middle;
   background-color: white;
@@ -41,7 +42,7 @@
   justify-content: space-between;
   border: 0ch;
   border-bottom: solid 0.1em;
-  margin-top: 2rem;
+  margin-top: 2em;
 
 }
 
@@ -49,14 +50,14 @@
   justify-content: space-between;
   border: 0ch;
   border-bottom: solid 0.1em;
-  margin-top: 2rem;
-  margin-top: 1rem;
+  margin-top: 1em;
 }
 
 .forgot-password {
   font-size: 14px;
   color: rgb(62, 95, 185);
   cursor: pointer;
+  margin-right: 6em;
 }
 
 .forgot-password-container {
@@ -112,7 +113,7 @@
 
 .login-btn {
   border: none;
-  width: 80%;
+  width: 90%;
   height: 10%;
   display: block;
   border-radius: 15px;
@@ -123,7 +124,7 @@
 
 .signup-btn {
   border: none;
-  width: 80%;
+  width: 90%;
   height: 10%;
   display: inline-table;
   cursor: pointer;
@@ -159,10 +160,8 @@
 }
 
 .back {
-  size: 14px;
   overflow: visible;
-  margin-right: 9.5rem;
-  margin-bottom: 3ch;
+  margin-right: 80%;
   cursor: pointer;
   color: black;
 }
@@ -176,23 +175,23 @@
 .password-signup {
   border: 0ch;
   border-bottom: solid 0.1em;
-  margin-top: 1rem;
+  margin-top: 1em;
 }
 
 .mail {
   border: 0ch;
   border-bottom: solid 0.1em;;
-  margin-top: 1rem;
+  margin-top: 1em;
 }
 
 .signup-signup-btn {
   border: none;
-  width: 80%;
+  width: 90%;
   height: 10%;
   display: inline-table;
   cursor: pointer;
   border-radius: 15px;
-  margin-top: 1rem;
+  margin-top: 1em;
   margin-bottom: 1.3em;
   color: white;
   background-color: rgb(62, 95, 185);

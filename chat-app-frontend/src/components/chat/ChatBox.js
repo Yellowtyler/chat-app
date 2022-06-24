@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRecoilState } from 'recoil';
-import { countReceivedMessages } from "../api/MessageAPI";
-import { chat, chatMessages, userId } from '../recoil/example/atom';
-import { calculateMessageDate } from "../utils/DateUtils";
+import { countReceivedMessages } from "../../api/MessageAPI";
+import { chat, chatMessages, userId } from '../../recoil/example/atom';
+import { calculateMessageDate } from "../../utils/DateUtils";
 
 const ChatBox = ({ chatBox }) => {
 

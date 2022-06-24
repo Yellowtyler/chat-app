@@ -1,10 +1,10 @@
-import { handleError } from '../api/APIUtils';
-import { getChats } from '../api/MessageAPI';
+import { handleError } from '../../api/APIUtils';
+import { getChats } from '../../api/MessageAPI';
 import { useRecoilState } from 'recoil';
 import ChatBox from './ChatBox';
 import { useState, useEffect } from 'react';
-import { chatMessages, popupActive, popupMessage } from "../recoil/example/atom";
-import { userId } from '../recoil/example/atom';
+import { chatMessages, popupActive, popupMessage } from "../../recoil/example/atom";
+import { userId } from '../../recoil/example/atom';
 
 const ChatBoxList = () => {
     const [userID, ] = useRecoilState(userId);

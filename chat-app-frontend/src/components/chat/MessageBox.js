@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
-import { getCurrentUserName } from "../api/APIUtils";
-import { userId, chatMessages } from "../recoil/example/atom";
-import { calculateMessageDate } from "../utils/DateUtils";
+import { getCurrentUserName } from "../../api/APIUtils";
+import { userId, chatMessages } from "../../recoil/example/atom";
+import { calculateMessageDate } from "../../utils/DateUtils";
 import { BiTrash , BiX} from "react-icons/bi";
-import { deleteMessage } from "../api/MessageAPI";
+import { deleteMessage } from "../../api/MessageAPI";
 
 const MessageBox = ({ message, chat }) => {
 

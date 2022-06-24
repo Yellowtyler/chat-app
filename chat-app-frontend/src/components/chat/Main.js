@@ -1,14 +1,14 @@
-import './../styles/main.css';
+import '../../styles/main.css';
 import Chat from './Chat';
 import { useEffect, useState } from 'react';
-import { logout } from '../api/AuthAPI';
+import { logout } from '../../api/AuthAPI';
 import { useRecoilState } from 'recoil';
-import { chat, chatMessages } from "../recoil/example/atom";
-import { isLoggedUser, userId } from '../recoil/example/atom';
+import { chat, chatMessages } from "../../recoil/example/atom";
+import { isLoggedUser, userId } from '../../recoil/example/atom';
 import SearchResult from './SearchResult';
 import { BiArrowBack, BiExit } from "react-icons/bi";
 import ChatBoxList from './ChatBoxList';
-import { getUserStatus, updateUserStatus } from '../api/UserAPI';
+import { getUserStatus, updateUserStatus } from '../../api/UserAPI';
 
 var stompClient = null;
 

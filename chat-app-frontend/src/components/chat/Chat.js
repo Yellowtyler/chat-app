@@ -1,10 +1,10 @@
-import './../styles/chat.css';
+import './../../styles/chat.css';
 import { useEffect, useState } from "react";
-import { handleError } from "../api/APIUtils";
-import { getMessages } from "../api/MessageAPI";
+import { handleError } from "../../api/APIUtils";
+import { getMessages } from "../../api/MessageAPI";
 import Dialogue from "./Dialogue";
 import { useRecoilState } from "recoil";
-import { popupMessage, userId, chatMessages, popupActive } from '../recoil/example/atom';
+import { popupMessage, userId, chatMessages, popupActive } from '../../recoil/example/atom';
 import { BiSend, BiDownArrowAlt } from "react-icons/bi";
 
 const Chat = ({ chat, sendMessage }) => {

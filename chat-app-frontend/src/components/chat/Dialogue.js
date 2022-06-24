@@ -1,8 +1,8 @@
 import MessageBox from "./MessageBox";
 import { useRecoilState } from "recoil";
-import { chatMessages, popupActive, popupMessage, userId } from "../recoil/example/atom";
-import { handleError } from "../api/APIUtils";
-import { getMessages } from "../api/MessageAPI";
+import { chatMessages, popupActive, popupMessage, userId } from "../../recoil/example/atom";
+import { handleError } from "../../api/APIUtils";
+import { getMessages } from "../../api/MessageAPI";
 import { useEffect, useRef } from "react";
 
 const Dialogue = ({ chat, isClicked, messageLimit, setMessageLimit }) => {

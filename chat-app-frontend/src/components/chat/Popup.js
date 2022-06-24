@@ -1,9 +1,9 @@
 
-import '../styles/popup.css';
+import '../../styles/popup.css';
 import { useRecoilState } from 'recoil';
-import { chat, isLoggedUser, popupActive, popupMessage, userId } from '../recoil/example/atom';
-import { logout } from '../api/AuthAPI';
-import { updateUserStatus } from '../api/UserAPI';
+import { chat, isLoggedUser, popupActive, popupMessage, userId } from '../../recoil/example/atom';
+import { logout } from '../../api/AuthAPI';
+import { updateUserStatus } from '../../api/UserAPI';
 const Popup = () => {
 
     const [, setActive] = useRecoilState(popupActive);
