@@ -4,7 +4,7 @@ import { signupUser } from '../../api/AuthAPI';
 import { validateUsername, validateMail, validatePassword } from '../../utils/ValidationUtils';
 import { useState } from 'react';
 import { Alert } from 'react-bootstrap';
-import {BiArrowBack} from "react-icons/bi";
+import { BiArrowBack }  from "react-icons/bi";
 
 export const Signup = ({ isLoginPage, setIsLoginPage }) => {
 

@@ -12,7 +12,7 @@ import { getUserStatus, updateUserStatus } from '../../api/UserAPI';
 
 var stompClient = null;
 
-const Main = () => {
+const Home = () => {
     const [, setIsLogin] = useRecoilState(isLoggedUser);
     const [openedChat, setOpenedChat] = useRecoilState(chat);
     const [userID, setUserId] = useRecoilState(userId);
@@ -129,4 +129,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default Home;

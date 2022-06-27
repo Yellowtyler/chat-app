@@ -24,4 +24,11 @@ public interface UserRepository extends CrudRepository<User, UUID> {
     @Modifying
     @Query("update User u set u.isActive=:status where id=:id")
     void setIsActive(@Param("id") UUID id, @Param("status") boolean status);
+
+    Optional<User> findByMail(String mail);
+
+    @Transactional
+    @Modifying
+    @Query("update User u set u.password=?1 where u.username=?2")
+    void updatePassword(String password, String username);
 }

@@ -14,10 +14,20 @@ spring:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
+  mail:
+    host: 0.0.0.0
+    port: 3025
+    username: hello@gmail.com
+    password: 123
+    properties.mail.smtp.auth: false
+    properties.mail.smtp.starttls.enable: false
 
 server:
   port: 8081
 
+client:
+  location:
+    url: http://localhost:3000
 logging:
   level:
     org.springframework: DEBUG

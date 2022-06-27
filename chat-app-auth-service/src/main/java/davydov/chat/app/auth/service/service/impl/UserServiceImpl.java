@@ -70,4 +70,22 @@ public class UserServiceImpl implements UserService {
         userRepository.setIsActive(UUID.fromString(request.getId()), request.isStatus());
     }
 
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s username not found", username)));
+    }
+
+    @Override
+    public User findUserByMail(String mail) {
+        return userRepository.findByMail(mail)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with mail %s not found", mail)));
+    }
+
+    @Override
+    public void changeUserPassword(ResetPasswordRequest request) {
+        userRepository.updatePassword(passwordEncoder.encode(request.getPassword()), request.getUsername());
+    }
+
+
 }
