@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { BiArrowBack } from "react-icons/bi";
 import { sendMailToChangePassword } from '../../api/AuthAPI';
-import { Alert } from 'react-bootstrap';
 import { popupActive, popupMessage } from '../../recoil/example/atom';
 import { useRecoilState } from 'recoil';
+import { AlertMessage } from '../utils/AlertMessage';
 export const ForgotPassword = ({ setIsForgetPassword }) => {
   
     const [usernameOrMail, setUsernameOrMail] = useState('');
@@ -38,14 +38,7 @@ export const ForgotPassword = ({ setIsForgetPassword }) => {
                 onChange={e=>setUsernameOrMail(e.target.value)}>
             </input>
             <button className='forgot-password-btn' onClick={sendMail}>Send</button>
-            <Alert show={show} variant="success" className="auth-alert">
-                <Alert.Heading>Check your mail!</Alert.Heading>
-                <div className="d-flex justify-content-end">
-                    <button className="auth-alert-btn" onClick={() => {setShow(false); switchPage();}}>
-                    Go to Login page
-                    </button>
-                </div>
-            </Alert>
+            <AlertMessage show={show} handleClick={() => {setShow(false); switchPage();}} title='Check your mail!' message='Go to Login page'/>
         </div>
     );
 }

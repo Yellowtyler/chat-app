@@ -27,6 +27,8 @@ import java.util.concurrent.CompletableFuture;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+
+//TODO: redo test
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ChatControllerTest {
 
@@ -48,9 +50,7 @@ class ChatControllerTest {
     @Test
     public void verifyMessageIsReceived() throws Exception {
         UUID id = UUID.randomUUID();
-
         webSocketStompClient.setMessageConverter(new MappingJackson2MessageConverter());
-
         StompSession session = webSocketStompClient
                 .connect(String.format("ws://localhost:%d/ws", port), new StompSessionHandlerAdapter() {})
                 .get(1, SECONDS);

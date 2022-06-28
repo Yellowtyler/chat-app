@@ -1,8 +1,8 @@
 import React from 'react'
-import '../styles/auth.css';
+import '../styles/main.css';
 import Auth from './auth/Auth';
 import Home from './chat/Home';
-import Popup from './chat/Popup';
+import Popup from './utils/Popup';
 import { useRecoilState } from 'recoil';
 import { isLoggedUser, popupActive } from '../recoil/example/atom';
 

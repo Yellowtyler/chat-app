@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { resetPassword, validateToken } from '../../api/AuthAPI';
 import { useSearchParams, useHistory } from 'react-router-dom';
 import '../../styles/auth.css';
-import { AlertMessage } from '../AlertMessage';
+import { AlertMessage } from '../utils/AlertMessage';
 import jwtDecode from "jwt-decode";
 
 export const ResetPassword = () => {

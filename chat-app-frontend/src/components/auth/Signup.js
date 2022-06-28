@@ -3,8 +3,8 @@ import './../../styles/auth.css';
 import { signupUser } from '../../api/AuthAPI';
 import { validateUsername, validateMail, validatePassword } from '../../utils/ValidationUtils';
 import { useState } from 'react';
-import { Alert } from 'react-bootstrap';
 import { BiArrowBack }  from "react-icons/bi";
+import { AlertMessage } from '../utils/AlertMessage';
 
 export const Signup = ({ isLoginPage, setIsLoginPage }) => {
 
@@ -118,14 +118,8 @@ export const Signup = ({ isLoginPage, setIsLoginPage }) => {
             <input className="mail" type="mail" style={{'color': mailFieldColor}} placeholder="Enter mail" onChange={e=>changeAndValidateMail(e.target.value)}></input>
             { errorMsg.length > 0 && <span className="error-message">{errorMsg}</span>}
             <button className="signup-signup-btn" onClick={handleSignup}>Signup</button>
-            <Alert show={show} variant="success" className="auth-alert">
-                <Alert.Heading>You successfully signed up!</Alert.Heading>
-                <div className="d-flex justify-content-end">
-                    <button className="auth-alert-btn" onClick={() => {setShow(false); switchPage();}}>
-                    Go to Login page
-                    </button>
-                </div>
-            </Alert>
+            <AlertMessage show={show} handleClick={() => {setShow(false); switchPage();}} title='You successfully signed up!' message='Go to Login page'/>
+       
         </div>
     );
 }

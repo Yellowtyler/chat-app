@@ -1,4 +1,4 @@
-import '../../styles/main.css';
+import '../../styles/home.css';
 import Chat from './Chat';
 import { useEffect, useState } from 'react';
 import { logout } from '../../api/AuthAPI';

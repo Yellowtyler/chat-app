@@ -1,6 +1,6 @@
 import Auth from './components/auth/Auth';
 
-import Popup from './components/chat/Popup';
+import Popup from './components/utils/Popup';
 import { useRecoilState } from 'recoil';
 import { isLoggedUser, popupActive } from './recoil/example/atom';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
