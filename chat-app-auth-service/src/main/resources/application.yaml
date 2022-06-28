@@ -14,13 +14,6 @@ spring:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
-  mail:
-    host: 0.0.0.0
-    port: 3025
-    username: hello@gmail.com
-    password: 123
-    properties.mail.smtp.auth: false
-    properties.mail.smtp.starttls.enable: false
 
 server:
   port: 8081
@@ -38,3 +31,14 @@ jwt:
   prefix: Bearer
   expiration: 300
   secret: JwtSuperBigFuckYeahWhatElseToWriteOMGSecretKey
+
+mail:
+  host: localhost
+  port: 3025
+  username: hello@gmail.com
+  password: 123
+  from: noreply@gmail.com
+  protocol: smtp
+  auth: true
+  tls: true
+  debug: true
