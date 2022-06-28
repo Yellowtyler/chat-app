@@ -35,13 +35,12 @@ public class ChatController {
         messageService.save(message);
 
         messagingTemplate.convertAndSendToUser(
-                message.getRecipientId(),
-                "/queue/messages",
-                MessageNotification.builder()
-                        .id(message.getId())
-                        .senderId(message.getSenderId())
-                       // .senderName(message.getSenderName())
-                        .build()
+            message.getRecipientId(),
+            "/queue/messages",
+            MessageNotification.builder()
+                .id(message.getId())
+                .senderId(message.getSenderId())
+                .build()
         );
     }
 

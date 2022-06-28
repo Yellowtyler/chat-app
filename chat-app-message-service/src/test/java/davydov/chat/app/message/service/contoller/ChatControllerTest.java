@@ -27,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.profiles.active=test")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ChatControllerTest {
 
     @LocalServerPort
@@ -55,11 +55,10 @@ class ChatControllerTest {
                 .connect(String.format("ws://localhost:%d/ws", port), new StompSessionHandlerAdapter() {})
                 .get(1, SECONDS);
 
-        session.subscribe("/user/" + id + "/queue/messages", new StompFrameHandler() {
+        session.subscribe("/user/" + "22edbda3-65ba-45a4-858d-695a6c126c02" + "/queue/messages", new StompFrameHandler() {
 
             @Override
             public Type getPayloadType(StompHeaders headers) {
-
                 return Message.class;
             }
 
@@ -73,8 +72,8 @@ class ChatControllerTest {
                 .messageStatus(MessageStatus.DELIVERED)
                 .id(id)
                 .content("hi")
-                .recipientId("1")
-                .senderId("2")
+                .recipientId("22edbda3-65ba-45a4-858d-695a6c126c02")
+                .senderId("f64f29f3-e57d-45e4-857e-f53437eb79d4")
                 .creationDate(LocalDateTime.now())
                 .build();
 
