@@ -87,5 +87,4 @@ public class UserServiceImpl implements UserService {
         userRepository.updatePassword(passwordEncoder.encode(request.getPassword()), request.getUsername());
     }
 
-
 }

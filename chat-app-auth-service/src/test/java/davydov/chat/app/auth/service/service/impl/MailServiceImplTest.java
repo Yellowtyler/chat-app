@@ -52,7 +52,7 @@ public class MailServiceImplTest {
     @Test
     @DisplayName("Send test")
     void testSend() throws MessagingException, IOException {
-        User user = new User();
+        var user = new User();
         user.setId(UUID.randomUUID());
         user.setUsername("Alice");
         user.setPassword("123Qwerty!2");
