@@ -29,7 +29,6 @@ public class MailServiceImpl implements MailService {
         simpleMailMessage.setTo(to.getMail());
         simpleMailMessage.setSubject("reset your password");
         var token = tokenProvider.generateToken(to);
-        System.out.println(token);
         String resetPasswordUrl = clientUrl + "/reset?token=" + token;
         simpleMailMessage.setText("Go to " + resetPasswordUrl + " to reset your password.");
         javaMailSender.send(simpleMailMessage);

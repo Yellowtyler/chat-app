@@ -18,7 +18,6 @@ const ChatBoxList = () => {
             if (response.data[0] != null) {
                 setChatList(response.data);
             }
-            console.log(response);
         }, error => {
             setActivePopup(true);
             setPopupMessage(handleError(error.response.status));

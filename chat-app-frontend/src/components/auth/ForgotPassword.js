@@ -18,7 +18,6 @@ export const ForgotPassword = ({ setIsForgetPassword }) => {
     const sendMail = (e) => {
         if (usernameOrMail.trim() !== '') {
             const request = { value : usernameOrMail };
-            console.log(request);
             sendMailToChangePassword(request)
             .then(
                 () => setShow(true), error => {
@@ -38,7 +37,7 @@ export const ForgotPassword = ({ setIsForgetPassword }) => {
                 onChange={e=>setUsernameOrMail(e.target.value)}>
             </input>
             <button className='forgot-password-btn' onClick={sendMail}>Send</button>
-            <AlertMessage show={show} handleClick={() => {setShow(false); switchPage();}} title='Check your mail!' message='Go to Login page'/>
+            <AlertMessage show={show} handleClick={() => {setShow(false); switchPage();}} title='Check your mail!' message='Go to Login page' variant='success'/>
         </div>
     );
 }

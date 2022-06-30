@@ -39,7 +39,6 @@ export const Signup = ({ isLoginPage, setIsLoginPage }) => {
                 password: password,
                 mail: mail
             };
-            console.log(JSON.stringify(signupRequest));
             signupUser(signupRequest).then(()=>setShow(true), error => {
                 if (error.response.status === 400) {
                     setErrorMsg('This username already exists!');
@@ -118,7 +117,7 @@ export const Signup = ({ isLoginPage, setIsLoginPage }) => {
             <input className="mail" type="mail" style={{'color': mailFieldColor}} placeholder="Enter mail" onChange={e=>changeAndValidateMail(e.target.value)}></input>
             { errorMsg.length > 0 && <span className="error-message">{errorMsg}</span>}
             <button className="signup-signup-btn" onClick={handleSignup}>Signup</button>
-            <AlertMessage show={show} handleClick={() => {setShow(false); switchPage();}} title='You successfully signed up!' message='Go to Login page'/>
+            <AlertMessage show={show} handleClick={() => {setShow(false); switchPage();}} title='You successfully signed up!' message='Go to Login page' variant='success'/>
        
         </div>
     );

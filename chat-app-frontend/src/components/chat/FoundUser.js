@@ -11,7 +11,6 @@ const FoundUser = ({ foundUser }) => {
     const [userID, ] = useRecoilState(userId);
 
     const handleClick = () => {
-        console.log(foundUser);
         const getOrCreateChatRequest = {
             senderId: userID,
             senderName: getCurrentUserName(), 

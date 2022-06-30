@@ -29,7 +29,7 @@ jwt:
   uri: /auth/**
   header: Authorization
   prefix: Bearer
-  expiration: 300
+  expiration: 3000
   secret: JwtSuperBigFuckYeahWhatElseToWriteOMGSecretKey
 
 mail:

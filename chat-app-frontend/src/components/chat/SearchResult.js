@@ -14,7 +14,6 @@ const SearchResult = ({ searchValue, isSearch }) => {
     }, [isSearch]);
 
     useEffect(() => {
-        console.log(searchValue);
         searchForUsers(searchValue).then(response => {
             const foundUsers = response.data.filter(v => v.username !== getUserName);
             setFoundUsers(foundUsers);

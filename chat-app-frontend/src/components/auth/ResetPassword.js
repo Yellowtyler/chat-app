@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { resetPassword, validateToken } from '../../api/AuthAPI';
-import { useSearchParams, useHistory } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import '../../styles/auth.css';
 import { AlertMessage } from '../utils/AlertMessage';
 import jwtDecode from "jwt-decode";
@@ -17,8 +17,7 @@ export const ResetPassword = () => {
     useEffect(() => {
         const token = searchParams.get('token');
         validateToken(token).then(response => {
-            console.log(response.data);
-            if (!response.data.flag) {
+            if (response.data.flag) {
                 setIsTokenValid(false);
             } else {
                 const name = jwtDecode(token).name;
@@ -37,7 +36,7 @@ export const ResetPassword = () => {
     };
 
     const switchPage = (e) => {
-        this.props.history.push("/");
+        window.location.replace(window.location.protocol + "//" + window.location.host);
         setShow(false);
     };
 
@@ -48,9 +47,9 @@ export const ResetPassword = () => {
                 <input className='password' placeholder='Enter new password' type="password" onChange={e=>setResetPassword(e.target.value)}></input>
                 <input className='password' placeholder='Repeat new password' type="password" onChange={e=>setRepeatResetPassword(e.target.value)}></input>
                 <button onClick={handleClick}>Reset password</button>
-                <AlertMessage show={show} handleClick={switchPage} title='Successfully changed password' message='Go to Login page'/>
+                <AlertMessage show={show} handleClick={switchPage} title='Successfully changed password' message='Go to Login page' variant='success'/>
             </div>}
-            {!isTokenValid && <AlertMessage show={!isTokenValid} handleClick={switchPage} title='Token is expired!' message='Go to Login page' variant='danger'/> }
+            {!isTokenValid && <AlertMessage show={!isTokenValid} handleClick={switchPage} title='Token is expired!' message='Go to Login page' variant='error'/> }
         </div>
     );
 }

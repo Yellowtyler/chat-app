@@ -35,7 +35,6 @@ const Chat = ({ chat, sendMessage }) => {
                 content: sendText,
                 creationDate: new Date().toISOString(),
             };
-            console.log(message);
             sendMessage(message);
             setSendText('');
         }

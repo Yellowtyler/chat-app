@@ -15,7 +15,6 @@ const Dialogue = ({ chat, isClicked, messageLimit, setMessageLimit }) => {
     
     useEffect(()=> {
         getMessages(userID, chat.recipientId, messageLimit).then(response => {
-            console.log(response.data);
             if (response.data[0] !== null) {
                 setMessages(response.data);
             }
