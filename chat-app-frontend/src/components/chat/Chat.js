@@ -20,7 +20,6 @@ const Chat = ({ chat, sendMessage }) => {
     useEffect(() => {
         getMessages(userID, chat.recipientId, messageLimit).then(response => {
             setMessages(response.data);
-            console.log(response.data);
         }, error => {
             setPopupMessage(handleError(error.response.status));
             setActivePopup(true);

@@ -36,7 +36,6 @@ const Dialogue = ({ chat, isClicked, messageLimit, setMessageLimit }) => {
         const { scrollHeight, scrollTop, clientHeight } = event.target;
         const scroll = scrollHeight - scrollTop - clientHeight;
         if (scroll > (scrollHeight - clientHeight) * 0.95) {
-            console.log(scroll);
             setMessageLimit(messageLimit+10);
         }
     };

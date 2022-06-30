@@ -12,14 +12,12 @@ const MessageBox = ({ message, chat }) => {
     const [messages, setMessages ] = useRecoilState(chatMessages);
     const [userID, ] = useRecoilState(userId);
     const calculateDate = useMemo(() => {
-        console.log(message.creationDate)
         return calculateMessageDate(message.creationDate);
     }, [messages.length]);
 
     const getUserName = useMemo(() => {
         return getCurrentUserName();
     }, [messages]);
-
 
     const handleClick = (e) => {
         setToDelete(!toDelete);
