@@ -1,11 +1,14 @@
 package davydov.chat.app.message.service.contoller;
 
+import davydov.chat.app.message.service.model.Chat;
 import davydov.chat.app.message.service.model.Message;
 import davydov.chat.app.message.service.model.MessageStatus;
+import davydov.chat.app.message.service.service.ChatService;
 import davydov.chat.app.message.service.service.MessageService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -14,6 +17,8 @@ import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
 import org.springframework.web.socket.sockjs.client.SockJsClient;
@@ -26,9 +31,15 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.mockito.ArgumentMatchers.any;
 
 
 //TODO: redo test
+//@ActiveProfiles("test")
+@TestPropertySource(properties = {
+        "spring.datasource.initializationMode=never",
+        "spring.jpa.defer-datasource-initialization=false",
+})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ChatControllerTest {
 
@@ -39,6 +50,9 @@ class ChatControllerTest {
 
     @MockBean
     private MessageService messageService;
+
+    @MockBean
+    private ChatService chatService;
 
     @BeforeEach
     public void setup() {
@@ -76,6 +90,8 @@ class ChatControllerTest {
                 .senderId("f64f29f3-e57d-45e4-857e-f53437eb79d4")
                 .creationDate(LocalDateTime.now())
                 .build();
+
+        Mockito.when(chatService.getChats(any(), any())).thenReturn(List.of(new Chat(), new Chat()));
 
         session.send("/app/chat", message);
 

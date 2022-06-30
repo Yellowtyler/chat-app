@@ -22,7 +22,7 @@ public class TestConfig {
                 .create()
                 .type(HikariDataSource.class)
                 .driverClassName("org.h2.Driver")
-                .url("jdbc:h2:mem:db;DB_CLOSE_DELAY=-1")
+                .url("jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;MODE=PostgreSQL")
                 .username("sa")
                 .password("sa")
                 .build();

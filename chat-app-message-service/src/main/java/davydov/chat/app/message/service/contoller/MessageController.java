@@ -18,7 +18,6 @@ public class MessageController {
     @GetMapping("/{senderId}/{recipientId}/{limit}")
     public ResponseEntity<?> getMessages(@PathVariable String senderId, @PathVariable String recipientId, @PathVariable Long limit) {
         return ResponseEntity.ok(messageService.getMessages(senderId, recipientId, limit));
-
     }
 
     @GetMapping("/{id}")
