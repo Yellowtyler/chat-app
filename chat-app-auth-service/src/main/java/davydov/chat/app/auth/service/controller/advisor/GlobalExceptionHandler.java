@@ -1,4 +1,4 @@
-package davydov.chat.app.auth.service.controller;
+package davydov.chat.app.auth.service.controller.advisor;
 
 import davydov.chat.app.auth.service.exception.UserAlreadyExistsException;
 import davydov.chat.app.auth.service.model.AuthError;

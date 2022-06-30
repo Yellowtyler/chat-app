@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "${client.location.url}")
 @RequiredArgsConstructor
 @Controller
 public class ChatController {
@@ -35,31 +35,13 @@ public class ChatController {
         messageService.save(message);
 
         messagingTemplate.convertAndSendToUser(
-                message.getRecipientId(),
-                "/queue/messages",
-                MessageNotification.builder()
-                        .id(message.getId())
-                        .senderId(message.getSenderId())
-                       // .senderName(message.getSenderName())
-                        .build()
+            message.getRecipientId(),
+            "/queue/messages",
+            MessageNotification.builder()
+                .id(message.getId())
+                .senderId(message.getSenderId())
+                .build()
         );
-    }
-
-    //todo: DELETE chat
-    @GetMapping("/messages/{senderId}/{recipientId}")
-    public ResponseEntity<?> getAllMessages(@PathVariable String senderId, @PathVariable String recipientId) {
-        return ResponseEntity.ok(messageService.getAllMessages(senderId, recipientId));
-
-    }
-
-    @GetMapping("/messages/{id}")
-    public ResponseEntity<Message> getMessage(@PathVariable String id) {
-        return ResponseEntity.ok(messageService.getMessage(id));
-    }
-
-    @GetMapping("/messages/{senderId}/{recipientId}/count")
-    public ResponseEntity<Long> countReceivedMessages(@PathVariable String senderId, @PathVariable String recipientId) {
-        return ResponseEntity.ok(messageService.countReceivedMessages(senderId, recipientId));
     }
 
     @GetMapping("/chats/{id}")

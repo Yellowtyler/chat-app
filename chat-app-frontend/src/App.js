@@ -1,20 +1,25 @@
-import Auth from './components/Auth';
-import Main from './components/Main';
-import Popup from './components/Popup';
+import Auth from './components/auth/Auth';
+
+import Popup from './components/utils/Popup';
 import { useRecoilState } from 'recoil';
 import { isLoggedUser, popupActive } from './recoil/example/atom';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ResetPassword } from './components/auth/ResetPassword';
+import { Main } from './components/Main';
 const App = () => {
 
   const [isLogin, ] = useRecoilState(isLoggedUser);
   const [isActive, ] = useRecoilState(popupActive);
 
   return (
-    <div className='container'>
-      {!isLogin && <Auth/>}
-      {isLogin && <Main/>}
-      {isActive && <Popup/>}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Main/>}></Route>
+          <Route path="reset" element={<ResetPassword/>}></Route>  
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

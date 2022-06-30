@@ -18,6 +18,9 @@ spring:
 server:
   port: 8081
 
+client:
+  location:
+    url: http://localhost:3000
 logging:
   level:
     org.springframework: DEBUG
@@ -26,5 +29,16 @@ jwt:
   uri: /auth/**
   header: Authorization
   prefix: Bearer
-  expiration: 300
+  expiration: 3000
   secret: JwtSuperBigFuckYeahWhatElseToWriteOMGSecretKey
+
+mail:
+  host: localhost
+  port: 3025
+  username: hello@gmail.com
+  password: 123
+  from: noreply@gmail.com
+  protocol: smtp
+  auth: true
+  tls: true
+  debug: true

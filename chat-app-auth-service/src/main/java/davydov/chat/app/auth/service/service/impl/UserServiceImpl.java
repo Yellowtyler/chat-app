@@ -2,10 +2,7 @@ package davydov.chat.app.auth.service.service.impl;
 
 import davydov.chat.app.auth.service.exception.UserAlreadyExistsException;
 import davydov.chat.app.auth.service.model.User;
-import davydov.chat.app.auth.service.payload.LoginRequest;
-import davydov.chat.app.auth.service.payload.LoginResponse;
-import davydov.chat.app.auth.service.payload.SignupRequest;
-import davydov.chat.app.auth.service.payload.UserDTO;
+import davydov.chat.app.auth.service.payload.*;
 import davydov.chat.app.auth.service.repository.RoleRepository;
 import davydov.chat.app.auth.service.repository.UserRepository;
 import davydov.chat.app.auth.service.service.TokenProvider;
@@ -19,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -27,7 +25,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final UserDetailsService userDetailsService;
     private final RoleRepository roleRepository;
     private final TokenProvider tokenProvider;
     private final AuthenticationManager authenticationManager;
@@ -61,6 +58,33 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsernameIsLike(username).stream()
                 .map(u -> new UserDTO(u.getId(), u.getUsername()))
                 .collect(Collectors.toUnmodifiableList());
+    }
+
+    @Override
+    public boolean getUserStatus(String id) {
+        return userRepository.findById(UUID.fromString(id)).get().isActive();
+    }
+
+    @Override
+    public void updateUserStatus(UpdateUserStatusRequest request) {
+        userRepository.setIsActive(UUID.fromString(request.getId()), request.isStatus());
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with %s username not found", username)));
+    }
+
+    @Override
+    public User findUserByMail(String mail) {
+        return userRepository.findByMail(mail)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with mail %s not found", mail)));
+    }
+
+    @Override
+    public void changeUserPassword(ResetPasswordRequest request) {
+        userRepository.updatePassword(passwordEncoder.encode(request.getPassword()), request.getUsername());
     }
 
 }

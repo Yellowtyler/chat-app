@@ -1,0 +1,11 @@
+.alert {
+    overflow: visible;
+    border-radius: 8px;
+    height: 10vh;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

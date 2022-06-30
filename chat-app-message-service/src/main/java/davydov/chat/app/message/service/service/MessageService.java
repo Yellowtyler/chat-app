@@ -5,12 +5,15 @@ import davydov.chat.app.message.service.model.Message;
 import java.util.List;
 
 public interface MessageService {
-    List<Message> getAllMessages(String senderId, String recipientId);
+    List<Message> getMessages(String senderId, String recipientId, Long limit);
 
     Message getMessage(String id);
 
-    void save(Message message);
+    Message save(Message message);
 
     Long countReceivedMessages(String senderId, String recipientId);
 
+    List<Message> searchForMessages(String message);
+
+    void deleteMessage(String id);
 }
